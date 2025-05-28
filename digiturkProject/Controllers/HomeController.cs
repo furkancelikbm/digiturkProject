@@ -1,32 +1,27 @@
-using System.Diagnostics;
+﻿using Microsoft.AspNetCore.Mvc;
 using digiturkProject.Models;
-using Microsoft.AspNetCore.Mvc;
 
 namespace digiturkProject.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
-        {
-            _logger = logger;
-        }
-
         public IActionResult Index()
         {
             return View();
         }
 
-        public IActionResult Privacy()
+        [HttpPost]
+        public IActionResult SubmitContactForm(ContactFormModel model)
         {
-            return View();
-        }
+            if (!ModelState.IsValid)
+            {
+                return Json(new { success = false, message = "Lütfen tüm alanları doğru şekilde doldurun." });
+            }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            // Here you would typically save the form data to a database
+            // For now, we'll just return a success message
+
+            return Json(new { success = true, message = "Form başarıyla gönderildi. En kısa sürede sizinle iletişime geçilecektir." });
         }
     }
 }
