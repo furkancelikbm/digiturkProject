@@ -1,0 +1,116 @@
+﻿@model List<digiturkProject.Components.ViewComponents.MatchWeekViewComponent.Match> // Proje adınıza göre değiştirin
+
+<div class="px-4 mt-4">
+    <section class="mx-auto max-w-[1200px] mb-1 mt-16">
+        <div class="text-center mb-10 px-4">
+            <h2 class="text-3xl md:text-4xl font-bold text-white mb-4 relative pb-4" style="text-shadow:-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;">
+                Haftanın Maçları
+                <span class="block absolute bottom-0 left-1/2 transform -translate-x-1/2 w-80 h-1 bg-gradient-to-r from-purple-500 to-orange-500 rounded-full"></span>
+            </h2>
+        </div>
+    </section>
+
+    <div class="relative mt-4">
+        <div id="matchWeekSlider_MatchWeekViewComponentPartial" class="overflow-x-auto no-scrollbar scroll-smooth">
+            <div class="flex space-x-8 w-max mx-auto">
+
+                @foreach (var match in Model)
+                {
+                    <div class="w-[80vw] md:w-[345px] card_MatchWeekViewComponentPartial flex-shrink-0 mt-4">
+                        <div class="relative h-[350px] bg-cover bg-center rounded-lg overflow-hidden">
+                            <div class="absolute inset-0 bg-white/20 p-4 border border-white/30"></div>
+                            <div class="relative p-6 z-10 h-full flex flex-col">
+                                <div class="mb-4 text-center">
+                                    <h3 class="text-white text-xl font-bold mb-1">@match.League</h3>
+                                    <p class="text-gray-200 text-sm">@match.Time</p>
+                                </div>
+                                <div class="flex-1 flex flex-col justify-center">
+                                    <div class="grid grid-cols-2 gap-4 text-center">
+                                        <div class="space-y-2">
+                                            <img src="@match.HomeTeamImage" alt="@match.HomeTeamName" loading="lazy" class="w-full max-w-[120px] mx-auto object-contain h-24">
+                                            <span class="block text-white font-medium">@match.HomeTeamName</span>
+                                        </div>
+                                        <div class="space-y-2">
+                                            <img src="@match.AwayTeamImage" alt="@match.AwayTeamName" loading="lazy" class="w-full max-w-[120px] mx-auto object-contain h-24">
+                                            <span class="block text-white font-medium">@match.AwayTeamName</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <a class="mt-4 block w-full bg-red-600 hover:bg-red-700 text-white text-center py-3 rounded-lg transition-colors" href="@match.BuyLink">
+                                    SATIN AL ANINDA İZLE
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+            </div>
+        </div>
+
+        <button id="sliderLeftBtn_MatchWeekViewComponentPartial" class="absolute z-20 left-0 top-1/2 transform -translate-y-1/2 border border-white/70 text-white rounded-full p-2 hover:bg-white hover:text-gray-800 transition duration-200 block md:hidden" aria-label="Mobil Buton">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+            </svg>
+        </button>
+        <button id="sliderRightBtn_MatchWeekViewComponentPartial" class="absolute z-20 right-0 top-1/2 transform -translate-y-1/2 border border-white/70 text-white rounded-full p-2 hover:bg-white hover:text-gray-800 transition duration-200 block md:hidden" aria-label="Mobile Buton">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+            </svg>
+        </button>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const slider = document.getElementById('matchWeekSlider_MatchWeekViewComponentPartial');
+      const leftBtn = document.getElementById('sliderLeftBtn_MatchWeekViewComponentPartial');
+      const rightBtn = document.getElementById('sliderRightBtn_MatchWeekViewComponentPartial');
+      const cards = slider.querySelectorAll('.card_MatchWeekViewComponentPartial');
+      let currentIndex = 0;
+
+      function scrollToCard(index) {
+        if (index < 0 || index >= cards.length) return;
+        const card = cards[index];
+        const targetScrollLeft = card.offsetLeft - ((slider.offsetWidth - card.offsetWidth) / 2);
+        slider.scrollTo({ left: targetScrollLeft, behavior: 'smooth' });
+      }
+
+      leftBtn.addEventListener('click', () => {
+        if (currentIndex > 0) {
+          currentIndex--;
+          scrollToCard(currentIndex);
+        }
+      });
+
+      rightBtn.addEventListener('click', () => {
+        if (currentIndex < cards.length - 1) {
+          currentIndex++;
+          scrollToCard(currentIndex);
+        }
+      });
+
+      function debounce(func, wait) {
+        let timeout;
+        return function(...args) {
+          clearTimeout(timeout);
+          timeout = setTimeout(() => func.apply(this, args), wait);
+        };
+      }
+
+      slider.addEventListener('scroll', debounce(() => {
+        const sliderCenter = slider.scrollLeft + slider.offsetWidth / 2;
+        let closestIndex = 0;
+        let closestDistance = Infinity;
+        cards.forEach((card, index) => {
+          const cardCenter = card.offsetLeft + card.offsetWidth / 2;
+          const distance = Math.abs(cardCenter - sliderCenter);
+          if (distance < closestDistance) {
+            closestDistance = distance;
+            closestIndex = index;
+          }
+        });
+        currentIndex = closestIndex;
+        scrollToCard(currentIndex);
+      }, 150));
+    });
+</script>

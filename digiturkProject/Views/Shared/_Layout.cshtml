@@ -1,153 +1,29 @@
 ﻿<!DOCTYPE html>
 <html lang="tr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewData["Title"] - Digiturk</title>
-    <meta name="description" content="Türkiye'nin en sevilen dijital platformu Digiturk ile hem televizyon keyfini hem de kesintisiz internet deneyimini aynı anda yaşayın!">
-    <meta name="keywords" content="Digiturk, digiturk tv paketleri, digiturk tv, bein connect, taraftar paketi">
-    <meta name="author" content="Digiturk İnternet Tv">
-
-    <link rel="icon" href="~/images/logo-digiturk.svg" type="image/svg+xml">
-
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-    <link href="~/css/site.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        purple: {
-                            50: '#faf5ff',
-                            100: '#f3e8ff',
-                            200: '#e9d5ff',
-                            300: '#d8b4fe',
-                            400: '#c084fc',
-                            500: '#a855f7',
-                            600: '#9333ea',
-                            700: '#7e22ce',
-                            800: '#6b21a8',
-                            900: '#581c87',
-                            950: '#3b0764',
-                        }
-                    }
-                }
-            }
-        }
-    </script>
-
-    <style>
-        .bg-section {
-            background-image: url('/images/purple-night-ride-4k-qz-min.webp');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-        }
-
-        /* Add other custom styles from your HTML */
-        .no-scrollbar::-webkit-scrollbar {
-            display: none;
-        }
-
-        .no-scrollbar {
-            -ms-overflow-style: none;
-            scrollbar-width: none;
-        }
-
-        .animate-bounce-slow {
-            animation: bounce 3s infinite;
-        }
-
-        @@keyframes bounce {
-            0%, 100% {
-                transform: translateY(0);
-            }
-
-            50% {
-                transform: translateY(-10px);
-            }
-        }
-
-        .animate-fade-in-up {
-            animation: fadeInUp 0.5s ease-out forwards;
-        }
-
-        @@keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .animate-ring-1 {
-            animation: ring1 2.5s ease-out infinite;
-            animation-delay: 0s;
-        }
-
-        .animate-ring-2 {
-            animation: ring2 2.5s ease-out infinite;
-            animation-delay: 1s;
-        }
-
-        @@keyframes ring1 {
-            0% {
-                transform: scale(0.8);
-                opacity: 1;
-            }
-
-            50% {
-                transform: scale(1.5);
-                opacity: 0.3;
-            }
-
-            100% {
-                transform: scale(2);
-                opacity: 0;
-            }
-        }
-
-        @@keyframes ring2 {
-            0% {
-                transform: scale(0.8);
-                opacity: 0;
-            }
-
-            50% {
-                transform: scale(1.5);
-                opacity: 0.3;
-            }
-
-            100% {
-                transform: scale(2);
-                opacity: 0;
-            }
-        }
-    </style>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - digiturkProject</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/tailwind.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
+<body class="bg-gray-900">
+    @await Html.PartialAsync("_Header") @* Global header *@
 
-<body class="bg-purple-50 text-gray-800" style="font-family: 'Roboto', sans-serif;">
-    <!-- Google Tag Manager (noscript) -->
-    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-P3Q2BVXN" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div class="container mx-auto">
+        <main role="main" class="pb-3">
+            @RenderBody() @* Ana sayfa içeriği buraya gelecek *@
+        </main>
+    </div>
 
-    <section class="bg-section">
-        @RenderBody()
-    </section>
+    @await Html.PartialAsync("_Footer") @* Global footer *@
+    @await Html.PartialAsync("_FixedButtons") @* Global sabit butonlar *@
 
-    @await Html.PartialAsync("_Footer")
-
-    <!-- Fixed buttons -->
-    @await Html.PartialAsync("_FixedButtons")
-
-    <script src="~/js/site.js"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

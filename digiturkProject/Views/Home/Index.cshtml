@@ -1,792 +1,19 @@
-﻿@{
+﻿@model digiturkProject.Models.ContactFormModel // Eğer form gönderimi yapılıyorsa modelinizi buraya ekleyin
+@{
     ViewData["Title"] = "Ana Sayfa";
 }
 
-@await Html.PartialAsync("_Header")
-
 <div class="w-full">
-    <!-- Bilgisayar için (md ve üstü) -->
     <img src="images/home-bambaska-bir-sezon-banner.webp" alt="Digiturk Bambaska Bir Sezon Banner" class="w-full hidden md:block" fetchpriority="high">
 
-    <!-- Mobil için (md altı) -->
     <img src="images/home-bambaska-bir-sezon-banner-mobile.webp" alt="Digiturk Bambaska Bir Sezon Banner Mobile" class="w-full block md:hidden" fetchpriority="high">
 </div>
 
+@await Component.InvokeAsync("MatchWeek")
 
+@await Component.InvokeAsync("TvPackage")
 
-
-
-
-
-
-<div class="px-4 mt-4">
-    <!-- Başlık: Her zaman en üstte -->
-    <section class="mx-auto max-w-[1200px] mb-1 mt-16">
-        <div class="text-center mb-10 px-4">
-            <!-- Ana Başlık -->
-            <h2 class="text-3xl md:text-4xl font-bold text-white mb-4 relative pb-4" style="text-shadow:-1px -1px 0 #000, 1px -1px 0 #000, -1px  1px 0 #000, 1px  1px 0 #000;">
-                Haftanın Maçları
-                <!-- Dekoratif Çizgi -->
-                <span class="block absolute bottom-0 left-1/2 transform -translate-x-1/2 w-80 h-1 bg-gradient-to-r from-purple-500 to-orange-500 rounded-full"></span>
-            </h2>
-        </div>
-    </section>
-
-    <!-- Slider Container: relative, ok butonları için -->
-    <div class="relative mt-4">
-        <!-- Scrollable alan: overflow-x-auto, scroll-smooth -->
-        <div id="matchWeekSlider_MatchWeekViewComponentPartial" class="overflow-x-auto no-scrollbar scroll-smooth">
-            <div class="flex space-x-8 w-max mx-auto">
-
-                <!-- Kart 1 -->
-                <div class="w-[80vw] md:w-[345px] card_MatchWeekViewComponentPartial flex-shrink-0 mt-4">
-                    <div class="relative h-[350px] bg-cover bg-center rounded-lg overflow-hidden">
-                        <!-- Overlay -->
-                        <div class="absolute inset-0 bg-white/20 p-4 border border-white/30"></div>
-                        <div class="relative p-6 z-10 h-full flex flex-col">
-                            <!-- Kart Başlığı -->
-                            <div class="mb-4 text-center">
-                                <h3 class="text-white text-xl font-bold mb-1">Trendyol Süper Lig</h3>
-
-                                <p class="text-gray-200 text-sm">Cuma 20:00</p>
-                            </div>
-                            <!-- Takımlar -->
-                            <div class="flex-1 flex flex-col justify-center">
-                                <div class="grid grid-cols-2 gap-4 text-center">
-                                    <div class="space-y-2">
-                                        <img src="images/Antalyaspor.webp" alt="Antalyaspor" loading="lazy" class="w-full max-w-[120px] mx-auto object-contain h-24">
-                                        <span class="block text-white font-medium">Antalyaspor</span>
-                                    </div>
-                                    <div class="space-y-2">
-                                        <img src="images/Trabzonspor.webp" alt="Trabzonspor" loading="lazy" class="w-full max-w-[120px] mx-auto object-contain h-24">
-                                        <span class="block text-white font-medium">Trabzonspor</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Buton -->
-                            <a class="mt-4 block w-full bg-red-600 hover:bg-red-700 text-white text-center py-3 rounded-lg transition-colors" href="/secim">
-                                SATIN AL ANINDA İZLE
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <!-- Kart 1 -->
-                <div class="w-[80vw] md:w-[345px] card_MatchWeekViewComponentPartial flex-shrink-0 mt-4">
-                    <div class="relative h-[350px] bg-cover bg-center rounded-lg overflow-hidden">
-                        <!-- Overlay -->
-                        <div class="absolute inset-0 bg-white/20 p-4 border border-white/30"></div>
-                        <div class="relative p-6 z-10 h-full flex flex-col">
-                            <!-- Kart Başlığı -->
-                            <div class="mb-4 text-center">
-                                <h3 class="text-white text-xl font-bold mb-1">Trendyol Süper Lig</h3>
-
-                                <p class="text-gray-200 text-sm">Cuma 20:00</p>
-                            </div>
-                            <!-- Takımlar -->
-                            <div class="flex-1 flex flex-col justify-center">
-                                <div class="grid grid-cols-2 gap-4 text-center">
-                                    <div class="space-y-2">
-                                        <img src="images/Galatasaray.webp" alt="Galatasaray" loading="lazy" class="w-full max-w-[120px] mx-auto object-contain h-24">
-                                        <span class="block text-white font-medium">Galatasaray</span>
-                                    </div>
-                                    <div class="space-y-2">
-                                        <img src="images/Ba%C5%9Fak%C5%9Fehir.webp" alt="Başakşehir" loading="lazy" class="w-full max-w-[120px] mx-auto object-contain h-24">
-                                        <span class="block text-white font-medium">Başakşehir</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Buton -->
-                            <a class="mt-4 block w-full bg-red-600 hover:bg-red-700 text-white text-center py-3 rounded-lg transition-colors" href="/secim">
-                                SATIN AL ANINDA İZLE
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <!-- Kart 1 -->
-                <div class="w-[80vw] md:w-[345px] card_MatchWeekViewComponentPartial flex-shrink-0 mt-4">
-                    <div class="relative h-[350px] bg-cover bg-center rounded-lg overflow-hidden">
-                        <!-- Overlay -->
-                        <div class="absolute inset-0 bg-white/20 p-4 border border-white/30"></div>
-                        <div class="relative p-6 z-10 h-full flex flex-col">
-                            <!-- Kart Başlığı -->
-                            <div class="mb-4 text-center">
-                                <h3 class="text-white text-xl font-bold mb-1">Trendyol Süper Lig</h3>
-
-                                <p class="text-gray-200 text-sm">Cumartesi 16:00</p>
-                            </div>
-                            <!-- Takımlar -->
-                            <div class="flex-1 flex flex-col justify-center">
-                                <div class="grid grid-cols-2 gap-4 text-center">
-                                    <div class="space-y-2">
-                                        <img src="images/Fenerbah%C3%A7e.webp" alt="Fenerbahçe" loading="lazy" class="w-full max-w-[120px] mx-auto object-contain h-24">
-                                        <span class="block text-white font-medium">Fenerbahçe</span>
-                                    </div>
-                                    <div class="space-y-2">
-                                        <img src="images/Konyaspor.webp" alt="Konyaspor" loading="lazy" class="w-full max-w-[120px] mx-auto object-contain h-24">
-                                        <span class="block text-white font-medium">Konyaspor</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Buton -->
-                            <a class="mt-4 block w-full bg-red-600 hover:bg-red-700 text-white text-center py-3 rounded-lg transition-colors" href="/secim">
-                                SATIN AL ANINDA İZLE
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <!-- Kart 1 -->
-                <div class="w-[80vw] md:w-[345px] card_MatchWeekViewComponentPartial flex-shrink-0 mt-4">
-                    <div class="relative h-[350px] bg-cover bg-center rounded-lg overflow-hidden">
-                        <!-- Overlay -->
-                        <div class="absolute inset-0 bg-white/20 p-4 border border-white/30"></div>
-                        <div class="relative p-6 z-10 h-full flex flex-col">
-                            <!-- Kart Başlığı -->
-                            <div class="mb-4 text-center">
-                                <h3 class="text-white text-xl font-bold mb-1">Trendyol Süper Lig</h3>
-
-                                <p class="text-gray-200 text-sm">Pazar 19:00</p>
-                            </div>
-                            <!-- Takımlar -->
-                            <div class="flex-1 flex flex-col justify-center">
-                                <div class="grid grid-cols-2 gap-4 text-center">
-                                    <div class="space-y-2">
-                                        <img src="images/Bodrumspor.webp" alt="Bodrumspor" loading="lazy" class="w-full max-w-[120px] mx-auto object-contain h-24">
-                                        <span class="block text-white font-medium">Bodrumspor</span>
-                                    </div>
-                                    <div class="space-y-2">
-                                        <img src="images/Be%C5%9Fikta%C5%9F.webp" alt="Beşiktaş" loading="lazy" class="w-full max-w-[120px] mx-auto object-contain h-24">
-                                        <span class="block text-white font-medium">Beşiktaş</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Buton -->
-                            <a class="mt-4 block w-full bg-red-600 hover:bg-red-700 text-white text-center py-3 rounded-lg transition-colors" href="/secim">
-                                SATIN AL ANINDA İZLE
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-
-        <!-- Mobilde ok butonları: md'den küçük ekranlarda görünür -->
-        <button id="sliderLeftBtn_MatchWeekViewComponentPartial" class="absolute z-20 left-0 top-1/2 transform -translate-y-1/2 border border-white/70 text-white rounded-full p-2 hover:bg-white hover:text-gray-800 transition duration-200 block md:hidden" aria-label="Mobil Buton">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
-            </svg>
-        </button>
-        <button id="sliderRightBtn_MatchWeekViewComponentPartial" class="absolute z-20 right-0 top-1/2 transform -translate-y-1/2 border border-white/70 text-white rounded-full p-2 hover:bg-white hover:text-gray-800 transition duration-200 block md:hidden" aria-label="Mobile Buton">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-            </svg>
-        </button>
-
-
-
-
-    </div>
-</div>
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-      const slider = document.getElementById('matchWeekSlider_MatchWeekViewComponentPartial');
-      const leftBtn = document.getElementById('sliderLeftBtn_MatchWeekViewComponentPartial');
-      const rightBtn = document.getElementById('sliderRightBtn_MatchWeekViewComponentPartial');
-      const cards = slider.querySelectorAll('.card_MatchWeekViewComponentPartial');
-      let currentIndex = 0;
-
-      // Belirtilen index'teki kartın merkezini ekranın ortasına alacak hesaplama
-      function scrollToCard(index) {
-        if (index < 0 || index >= cards.length) return;
-        const card = cards[index];
-        // Hedef scrollLeft: kartın sol konumundan slider genişliğinin yarısı eksi kart genişliğinin yarısı çıkarılır
-        const targetScrollLeft = card.offsetLeft - ((slider.offsetWidth - card.offsetWidth) / 2);
-        slider.scrollTo({ left: targetScrollLeft, behavior: 'smooth' });
-      }
-
-      leftBtn.addEventListener('click', () => {
-        if (currentIndex > 0) {
-          currentIndex--;
-          scrollToCard(currentIndex);
-        }
-      });
-
-      rightBtn.addEventListener('click', () => {
-        if (currentIndex < cards.length - 1) {
-          currentIndex++;
-          scrollToCard(currentIndex);
-        }
-      });
-
-      // Debounce fonksiyonu – scroll durduktan sonra snap işlemi için
-      function debounce(func, wait) {
-        let timeout;
-        return function(...args) {
-          clearTimeout(timeout);
-          timeout = setTimeout(() => func.apply(this, args), wait);
-        };
-      }
-
-      // Manuel kaydırmada, scroll durduktan sonra en yakın kartı bul ve ortala
-      slider.addEventListener('scroll', debounce(() => {
-        const sliderCenter = slider.scrollLeft + slider.offsetWidth / 2;
-        let closestIndex = 0;
-        let closestDistance = Infinity;
-        cards.forEach((card, index) => {
-          const cardCenter = card.offsetLeft + card.offsetWidth / 2;
-          const distance = Math.abs(cardCenter - sliderCenter);
-          if (distance < closestDistance) {
-            closestDistance = distance;
-            closestIndex = index;
-          }
-        });
-        currentIndex = closestIndex;
-        scrollToCard(currentIndex);
-      }, 150));
-    });
-</script>
-
-<section class="mx-auto max-w-[1200px] mb-16 mt-16">
-    <div class="text-center mb-10 px-4">
-        <!-- Ana Başlık -->
-        <h2 class="text-3xl md:text-4xl font-bold text-white mb-4 relative pb-4" style="text-shadow:-1px -1px 0 #000, 1px -1px 0 #000, -1px  1px 0 #000, 1px  1px 0 #000;">
-            Popüler Digiturk TV Paketleri
-            <!-- Dekoratif Çizgi -->
-            <span class="block absolute bottom-0 left-1/2 transform -translate-x-1/2 w-80 h-1 bg-gradient-to-r from-purple-500 to-orange-500 rounded-full"></span>
-        </h2>
-
-        <!-- Açıklama Metni -->
-        <p class="text-white text-lg md:text-xl mt-4 max-w-2xl mx-auto" style="text-shadow:-1px -1px 0 #000, 1px -1px 0 #000, -1px  1px 0 #000, 1px  1px 0 #000;">
-            Digiturk TV ile yüksek hıza ve zengin içerik dünyasına adım atın, size en uygun paketi şimdi seçin!
-        </p>
-    </div>
-</section>
-
-
-
-
-<section class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 justify-center items-stretch mt-5 mx-auto max-w-[1200px] pb-24">
-
-    <!-- Kart 1 -->
-    <div class="bg-white/20 p-4 border border-white/30 rounded-lg shadow-md backdrop-blur-md hover:shadow-lg transition-shadow flex flex-col h-full">
-        <div class="relative">
-            <div class="absolute top-0 left-0 bg-purple-600 text-white py-1 px-3 text-xs rounded-r-lg">
-                Online Test
-            </div>
-            <div class="absolute top-0 right-0 bg-red-600 text-white py-1 px-3 text-xs rounded-l-lg">
-                TV
-            </div>
-            <img src="images/card1.png" alt="Lorem ipsum dolor sit amet." loading="lazy" class="w-full h-48 object-cover rounded-lg">
-            <div class="p-2 text-center" style="text-shadow:-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;">
-                <h3 class="text-lg font-semibold text-white">Lorem ipsum dolor.</h3>
-                <div class="text-sm text-white mt-2">
-                    Lorem ipsum dolo ex sapien vitae pellentesque
-                </div>
-                <div class="text-sm text-white mt-2">
-                    malesuada lacinia integer nunc posuere
-                </div>
-                <div class="text-sm text-white mt-2">
-                    malesuada lacinia integer nunc posuere
-                </div>
-                <div class="text-sm text-white mt-2">
-                    malesuada lacinia integer nunc posuere
-                </div>
-                <div class="text-sm text-white mt-2">
-                    malesuada lacinia integer nunc posuere
-                </div>
-            </div>
-        </div>
-        <!-- Fiyat ve Butonlar Bölümü -->
-        <div class="mt-4 space-y-3 mt-auto" style="text-shadow:-1px -1px 0 #000, 1px -1px 0 #000, -1px  1px 0 #000, 1px  1px 0 #000;">
-            <div class="text-white text-center text-2xl font-bold"><strong>₺999 /Ay</strong></div>
-            <div class="flex flex-col gap-2">
-                <button onclick="openModal()" class="bg-gradient-to-r from-purple-400 to-blue-800 hover:from-purple-600 hover:to-blue-800 text-white font-semibold py-3 px-6 rounded-lg transition-all transform hover:scale-105 shadow-lg hover:shadow-xl flex items-center gap-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
-                    </svg>
-                    fringilla lacus nec metus
-                </button>
-                <a class="bg-gradient-to-r from-pink-500 to-blue-800 hover:from-purple-600 hover:to-blue-800 text-white font-semibold py-3 px-6 rounded-lg transition-all transform hover:scale-105 shadow-lg hover:shadow-xl flex items-center gap-2" href="/secim">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
-                    </svg>
-                    Satın Al Anında İzle
-                </a>
-                <a class="text-center text-white py-2 px-4 rounded-lg transition-colors inline-flex items-center justify-center" href="/digiturk-taraftar-paketi-2">
-                    Detayları incele test
-                    <i class="fas fa-arrow-right ml-2"></i>
-                </a>
-            </div>
-        </div>
-    </div>
-    <!-- Kart 1 -->
-    <div class="bg-white/20 p-4 border border-white/30 rounded-lg shadow-md backdrop-blur-md hover:shadow-lg transition-shadow flex flex-col h-full">
-        <div class="relative">
-            <div class="absolute top-0 left-0 bg-purple-600 text-white py-1 px-3 text-xs rounded-r-lg">
-                Online Test
-            </div>
-            <div class="absolute top-0 right-0 bg-red-600 text-white py-1 px-3 text-xs rounded-l-lg">
-                TV
-            </div>
-            <img src="images/card2.png" alt="Pulvinar vivamus fringilla lacus nec metus" loading="lazy" class="w-full h-48 object-cover rounded-lg">
-            <div class="p-2 text-center" style="text-shadow:-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;">
-                <h3 class="text-lg font-semibold text-white">Tempus leo eu aenean sed diam urna</h3>
-                <div class="text-sm text-white mt-2">
-                    Lorem ipsum dolor sit amet consectetur adipiscing eli
-                </div>
-                <div class="text-sm text-white mt-2">
-                    Lorem ipsum dolor sit amet consectetur adipiscing eli
-                </div>
-                <div class="text-sm text-white mt-2">
-                    Lorem ipsum dolor sit amet consectetur adipiscing eli
-                </div>
-                <div class="text-sm text-white mt-2">
-                    Lorem ipsum dolor sit amet consectetur adipiscing eli
-                </div>
-                <div class="text-sm text-white mt-2">
-                    Lorem ipsum dolor sit amet consectetur adipiscing eli
-                </div>
-            </div>
-        </div>
-        <!-- Fiyat ve Butonlar Bölümü -->
-        <div class="mt-4 space-y-3 mt-auto" style="text-shadow:-1px -1px 0 #000, 1px -1px 0 #000, -1px  1px 0 #000, 1px  1px 0 #000;">
-            <div class="text-white text-center text-2xl font-bold"><strong>₺123 /Ay</strong></div>
-            <div class="flex flex-col gap-2">
-                <button onclick="openModal()" class="bg-gradient-to-r from-purple-400 to-blue-800 hover:from-purple-600 hover:to-blue-800 text-white font-semibold py-3 px-6 rounded-lg transition-all transform hover:scale-105 shadow-lg hover:shadow-xl flex items-center gap-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
-                    </svg>
-                    Başvuru Test
-                </button>
-                <a class="bg-gradient-to-r from-pink-500 to-blue-800 hover:from-purple-600 hover:to-blue-800 text-white font-semibold py-3 px-6 rounded-lg transition-all transform hover:scale-105 shadow-lg hover:shadow-xl flex items-center gap-2" href="/secim">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
-                    </svg>
-                    Pulvinar vivamus fringilla lacus nec metus
-                </a>
-                <a class="text-center text-white py-2 px-4 rounded-lg transition-colors inline-flex items-center justify-center" href="/digiturk-sporun-yildizi-paketi-2">
-                    Detaylı Test
-                    <i class="fas fa-arrow-right ml-2"></i>
-                </a>
-            </div>
-        </div>
-    </div>
-    <!-- Kart 1 -->
-    <div class="bg-white/20 p-4 border border-white/30 rounded-lg shadow-md backdrop-blur-md hover:shadow-lg transition-shadow flex flex-col h-full">
-        <div class="relative">
-            <div class="absolute top-0 left-0 bg-purple-600 text-white py-1 px-3 text-xs rounded-r-lg">
-                Pulvinar vivamus
-            </div>
-            <div class="absolute top-0 right-0 bg-red-600 text-white py-1 px-3 text-xs rounded-l-lg">
-                TV
-            </div>
-            <img src="images/card3.png" alt=" inceptos himenaeos." loading="lazy" class="w-full h-48 object-cover rounded-lg">
-            <div class="p-2 text-center" style="text-shadow:-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;">
-                <h3 class="text-lg font-semibold text-white">Lorem ipsum dolor sit amet consectetur adipiscing elit</h3>
-                <div class="text-sm text-white mt-2">
-                    Tempus leo eu aenean sed diam urna
-                </div>
-                <div class="text-sm text-white mt-2">
-                    Pulvinar vivamus fringilla lacus nec metus bibendum
-                </div>
-                <div class="text-sm text-white mt-2">
-                    Pulvinar vivamus fringilla lacus nec metus bibendum
-                </div>
-                <div class="text-sm text-white mt-2">
-                    Pulvinar vivamus fringilla lacus nec metus bibendum
-                </div>
-                <div class="text-sm text-white mt-2">
-                    Pulvinar vivamus fringilla lacus nec metus bibendum
-                </div>
-            </div>
-        </div>
-        <!-- Fiyat ve Butonlar Bölümü -->
-        <div class="mt-4 space-y-3 mt-auto" style="text-shadow:-1px -1px 0 #000, 1px -1px 0 #000, -1px  1px 0 #000, 1px  1px 0 #000;">
-            <div class="text-white text-center text-2xl font-bold"><strong>₺444 /Ay</strong></div>
-            <div class="flex flex-col gap-2">
-                <button onclick="openModal()" class="bg-gradient-to-r from-purple-400 to-blue-800 hover:from-purple-600 hover:to-blue-800 text-white font-semibold py-3 px-6 rounded-lg transition-all transform hover:scale-105 shadow-lg hover:shadow-xl flex items-center gap-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
-                    </svg>
-                    Lorem ipsum
-                </button>
-                <a class="bg-gradient-to-r from-pink-500 to-blue-800 hover:from-purple-600 hover:to-blue-800 text-white font-semibold py-3 px-6 rounded-lg transition-all transform hover:scale-105 shadow-lg hover:shadow-xl flex items-center gap-2" href="/secim">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
-                    </svg>
-                    Iaculis massa nisl
-                </a>
-                <a class="text-center text-white py-2 px-4 rounded-lg transition-colors inline-flex items-center justify-center" href="/digiturk-eglencenin-ve-avrupanin-yildizi-paketi">
-                    Detaylı Test
-                    <i class="fas fa-arrow-right ml-2"></i>
-                </a>
-            </div>
-        </div>
-    </div>
-</section>
-
-
-
-<section class="mx-auto max-w-[1200px] mb-16">
-    <div class="text-center mb-10 px-4">
-        <!-- Ana Başlık -->
-        <h2 class="text-3xl md:text-4xl font-bold text-white mb-4 relative pb-4">
-            Digiturk İnternet Paketleri
-            <!-- Dekoratif Çizgi -->
-            <span class="block absolute bottom-0 left-1/2 transform -translate-x-1/2 w-80 h-1 bg-gradient-to-r from-purple-500 to-orange-500 rounded-full"></span>
-        </h2>
-
-        <!-- Açıklama Metni -->
-        <p class="text-white text-lg md:text-xl mt-4 max-w-2xl mx-auto">
-            Digiturk Ev interneti ile yüksek hıza ve zengin içerik dünyasına adım atın, size en uygun paketi şimdi seçin!
-        </p>
-    </div>
-</section>
-
-<section class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 justify-center mt-5 items-center mx-auto max-w-[1400px] mb-24">
-    <div class="bg-white/20 p-4 border border-white/30 p-4 border rounded-lg shadow-md hover:shadow-lg transition-shadow package-card">
-        <div class="relative">
-            <!-- Badge'ler -->
-            <div class="absolute top-0 left-0 bg-purple-600 text-white py-1 px-3 text-xs rounded-r-lg">
-                Online'a Özel
-            </div>
-            <div class="absolute top-0 right-0 bg-red-600 text-white py-1 px-3 text-xs rounded-l-lg">
-                TV+İnternet
-            </div>
-
-            <!-- Resim -->
-            <img src="images/digiturk-ev-interneti.webp" alt="Digiturk Ev İnterneti" loading="lazy" class="w-full h-48 object-cover rounded-lg">
-
-            <!-- İçerik -->
-            <div class="p-2 text-white text-center">
-                <h3 class="text-center text-lg font-semibold package-title">Digiturk Ev İnterneti 16 Mbps</h3>
-                <div class="text-sm text-white">1500 TL'ye kadar cayma bedeli Digiturk' ten!</div>
-
-                <!-- Dinamik Select -->
-                <div class="mt-3 bg-white/20 p-2 border border-white/30 p-3 rounded-lg">
-                    <select class="package-selector w-full bg-white rounded-lg p-2 text-gray-800 border border-purple-300" aria-label="İnternet Paket Hızınızı Seçin">
-                        <option value="16" data-firstprice="459" data-url="digiturk-ev-interneti-16-mbps" data-title="Digiturk Ev İnterneti 16 Mbps">
-                            16 Mbps
-                        </option>
-                        <option value="35" data-firstprice="459" data-url="digiturk-ev-interneti-35-mbps" data-title="Digiturk Ev İnterneti 35 Mbps">
-                            35 Mbps
-                        </option>
-                        <option value="50" data-firstprice="539" data-url="digiturk-ev-interneti-50-mbps" data-title="Digiturk Ev İnterneti 50 Mbps">
-                            50 Mbps
-                        </option>
-                        <option value="100" data-firstprice="579" data-url="digiturk-ev-interneti-100-mbps" data-title="Digiturk Ev İnterneti 100 Mbps">
-                            100 Mbps
-                        </option>
-                    </select>
-                </div>
-                <div style="text-shadow:-1px -1px 0 #000, 1px -1px 0 #000, -1px  1px 0 #000, 1px  1px 0 #000;">
-                    <div class="mt-3 text-center">
-                        <div class="text-xl font-bold text-white">
-                            12 Ay Sabit <span class="first-price">459</span>₺
-                        </div>
-                    </div>
-
-                    <!-- Özellikler -->
-                    <div class="text-sm mt-2">12 Ay Boyunca Trendyol Süperlig dahil</div>
-                    <div class="text-sm mt-2">Trendyol 1. Lig ve Basketbol Maçları</div>
-                    <div class="text-sm mt-2">Premier League , Fransa Ligue 1, Bundesliga</div>
-                    <div class="text-sm mt-2">beIN CONNECT ile dilediğin yerde izle!</div>
-                </div>
-                <!-- Dinamik Fiyat -->
-
-            </div>
-
-            <!-- Fiyat ve Butonlar -->
-            <div class="mt-4 space-y-3">
-                <div class="flex flex-col gap-2">
-                    <button onclick="openModal()" class="bg-gradient-to-r from-purple-400 to-blue-800 hover:from-purpıle-600 hover:to-blue-800 text-white font-semibold py-3 px-6 rounded-lg transition-all transform hover:scale-105 shadow-lg hover:shadow-xl flex items-center gap-2">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
-                        </svg>
-                        Test Başvuru
-                    </button>
-                    <a class="detail-link text-center text-white py-2 px-4 rounded-lg transition-colors inline-flex items-center justify-center" href="/digiturk-ev-interneti-16-mbps">
-                        Detaylı İncele
-                        <i class="fas fa-arrow-right ml-2"></i>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="bg-white/20 p-4 border border-white/30 p-4 p-4 border rounded-lg shadow-md hover:shadow-lg transition-shadow package-card">
-        <div class="relative">
-            <!-- Badge'ler -->
-            <div class="absolute top-0 left-0 bg-purple-600 text-white py-1 px-3 text-xs rounded-r-lg">
-                Online'a Özel
-            </div>
-            <div class="absolute top-0 right-0 bg-red-600 text-white py-1 px-3 text-xs rounded-l-lg">
-                TV+İnternet
-            </div>
-
-            <!-- Resim -->
-            <img src="images/digiturk-internet.webp" alt="Digiturk İnternet" loading="lazy" class="w-full h-48 object-cover rounded-lg">
-
-            <!-- İçerik -->
-            <div class="p-2 text-white text-center">
-                <h3 class="text-center text-lg font-semibold package-title">Digiturk İnternet 16 Mbps</h3>
-                <div class="text-sm text-white">1500 TL'ye kadar cayma bedeli Digiturk' ten!</div>
-
-                <!-- Dinamik Select -->
-                <div class="mt-3 bg-white/20 p-2 border border-white/30 p-3 rounded-lg">
-                    <select class="package-selector w-full bg-white rounded-lg p-2 text-gray-800 border border-purple-300" aria-label="İnternet Paket Hızınızı Seçin">
-                        <option value="16" data-firstprice="499" data-url="digiturk-internet-16-mbps" data-title="Digiturk İnternet 16 Mbps">
-                            16 Mbps
-                        </option>
-                        <option value="35" data-firstprice="499" data-url="digiturk-internet-35-mbps" data-title="Digiturk İnternet 35 Mbps">
-                            35 Mbps
-                        </option>
-                        <option value="50" data-firstprice="589" data-url="digiturk-internet-50-mbps" data-title="Digiturk İnternet 50 Mbps">
-                            50 Mbps
-                        </option>
-                        <option value="100" data-firstprice="629" data-url="digiturk-internet-100-mbps" data-title="Digiturk İnternet 100 Mbps">
-                            100 Mbps
-                        </option>
-                    </select>
-                </div>
-                <div style="text-shadow:-1px -1px 0 #000, 1px -1px 0 #000, -1px  1px 0 #000, 1px  1px 0 #000;">
-                    <!-- Dinamik Fiyat -->
-                    <div class="mt-3 text-center text-white">
-                        <div class="text-xl font-bold text-white">
-                            12 Ay Sabit <span class="first-price">499</span>₺
-                        </div>
-                    </div>
-
-                    <!-- Özellikler -->
-                    <div class="text-sm  mt-2">12 Ay Boyunca Trendyol Süperlig dahil</div>
-                    <div class="text-sm  mt-2">Trendyol 1. Lig ve Basketbol Maçları</div>
-                    <div class="text-sm  mt-2">Premier League , Fransa Ligue 1, Bundesliga</div>
-                    <div class="text-sm  mt-2">beIN CONNECT ile dilediğin yerde izle!</div>
-
-                </div>
-
-            </div>
-
-            <!-- Fiyat ve Butonlar -->
-            <div class="mt-4 space-y-3">
-                <div class="flex flex-col gap-2">
-                    <button onclick="openModal()" class="bg-gradient-to-r from-purple-400 to-blue-800 hover:from-purpıle-600 hover:to-blue-800 text-white font-semibold py-3 px-6 rounded-lg transition-all transform hover:scale-105 shadow-lg hover:shadow-xl flex items-center gap-2">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
-                        </svg>
-                        Test Başvuru
-                    </button>
-                    <a class="detail-link text-center text-white py-2 px-4 rounded-lg transition-colors inline-flex items-center justify-center" href="/digiturk-internet-16-mbps">
-                        Detaylı İncele
-                        <i class="fas fa-arrow-right ml-2"></i>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-
-    <div class="bg-white/20 p-4 border border-white/30 p-4 border rounded-lg shadow-md hover:shadow-lg transition-shadow package-card">
-        <div class="relative">
-            <!-- Badge'ler -->
-            <div class="absolute top-0 left-0 bg-purple-600 text-white py-1 px-3 text-xs rounded-r-lg">
-                Test Online
-            </div>
-            <div class="absolute top-0 right-0 bg-red-600 text-white py-1 px-3 text-xs rounded-l-lg">
-                TV+İnternet
-            </div>
-
-            <!-- Resim -->
-            <img src="images/digiturk-vdsl-internet.webp" alt="Digiturk VDSL internet" loading="lazy" class="w-full h-48 object-cover rounded-lg">
-
-            <!-- İçerik -->
-            <div class="p-2 text-white text-center">
-                <h3 class="text-center text-lg font-semibold package-title">Digiturk VDSL İnternet 35 Mbps</h3>
-                <div class="text-sm text-white">1500 TL'ye kadar cayma bedeli Digiturk' ten!</div>
-
-                <!-- Dinamik Select -->
-                <div class="mt-3 bg-white/20 p-2 border border-white/30 p-3 rounded-lg">
-                    <select class="package-selector w-full bg-white rounded-lg p-2 text-gray-800 border border-purple-300" aria-label="İnternet Paket Hızınızı Seçin">
-                        <option value="35" data-firstprice="534" data-url="digiturk-vdsl-internet-35-mbps" data-title="Digiturk VDSL İnternet 35 Mbps">
-                            35 Mbps
-                        </option>
-                        <option value="50" data-firstprice="614" data-url="digiturk-vdsl-internet-50-mbps" data-title="Digiturk VDSL İnternet 50 Mbps">
-                            50 Mbps
-                        </option>
-                        <option value="100" data-firstprice="654" data-url="digiturk-vdsl-internet-100-mbps" data-title="Digiturk VDSL İnternet 100 Mbps">
-                            100 Mbps
-                        </option>
-                        <option value="200" data-firstprice="754" data-url="digiturk-vdsl-internet-200-mbps" data-title="Digiturk VDSL İnternet 200 Mbps">
-                            200 Mbps
-                        </option>
-                        <option value="500" data-firstprice="904" data-url="digiturk-vdsl-internet-500-mbps" data-title="Digiturk VDSL İnternet 500 Mbps">
-                            500 Mbps
-                        </option>
-                        <option value="1000" data-firstprice="1104" data-url="digiturk-vdsl-internet-1000-mbps" data-title="Digiturk VDSL İnternet 1000 Mbps">
-                            1000 Mbps
-                        </option>
-                    </select>
-                </div>
-                <div style="text-shadow:-1px -1px 0 #000, 1px -1px 0 #000, -1px  1px 0 #000, 1px  1px 0 #000;">
-                    <!-- Dinamik Fiyat -->
-                    <div class="mt-3 text-center text-white">
-                        <div class="text-xl font-bold text-white">
-                            12 Ay Sabit <span class="first-price">534</span>₺
-                        </div>
-
-                    </div>
-
-                    <!-- Özellikler -->
-                    <div class="text-sm mt-2">12 Ay Boyunca Trendyol Süperlig dahil</div>
-                    <div class="text-sm mt-2">Trendyol 1. Lig ve Basketbol Maçları</div>
-                    <div class="text-sm mt-2">Premier League , Fransa Ligue 1, Bundesliga</div>
-                    <div class="text-sm mt-2">beIN CONNECT ile dilediğin yerde izle!</div>
-
-                </div>
-
-            </div>
-
-            <!-- Fiyat ve Butonlar -->
-            <div class="mt-4 space-y-3">
-                <div class="flex flex-col gap-2">
-                    <button onclick="openModal()" class="bg-gradient-to-r from-purple-400 to-blue-800 hover:from-purpıle-600 hover:to-blue-800 text-white font-semibold py-3 px-6 rounded-lg transition-all transform hover:scale-105 shadow-lg hover:shadow-xl flex items-center gap-2">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
-                        </svg>
-                        Hemen Başvur
-                    </button>
-                    <a class="detail-link text-center text-white py-2 px-4 rounded-lg transition-colors inline-flex items-center justify-center" href="/digiturk-vdsl-internet-35-mbps">
-                        Detaylı İncele
-                        <i class="fas fa-arrow-right ml-2"></i>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="bg-white/20 p-4 border border-white/30 p-4 border rounded-lg shadow-md hover:shadow-lg transition-shadow package-card">
-        <div class="relative">
-            <!-- Badge'ler -->
-            <div class="absolute top-0 left-0 bg-purple-600 text-white py-1 px-3 text-xs rounded-r-lg">
-                Online'a Özel
-            </div>
-            <div class="absolute top-0 right-0 bg-red-600 text-white py-1 px-3 text-xs rounded-l-lg">
-                TV+İnternet
-            </div>
-
-            <!-- Resim -->
-            <img src="images/digiturk-fiber-internet.webp" alt="Digiturk Fiber İnternet" loading="lazy" class="w-full h-48 object-cover rounded-lg">
-
-            <!-- İçerik -->
-            <div class="p-2 text-white text-center">
-                <h3 class="text-center text-lg font-semibold text-white package-title">Digiturk Fiber İnternet 35 Mbps</h3>
-                <div class="text-sm text-white">1500 TL'ye kadar cayma bedeli Digiturk' ten!</div>
-
-                <!-- Dinamik Select -->
-                <div class="mt-3 bg-white/20 p-2 border border-white/30 p-3 rounded-lg">
-                    <select class="package-selector w-full bg-white rounded-lg p-2 text-gray-800 border border-purple-300" aria-label="İnternet Paket Hızınızı Seçin">
-                        <option value="35" data-firstprice="574" data-url="digiturk-fiber-internet-35-mbps" data-title="Digiturk Fiber İnternet 35 Mbps">
-                            35 Mbps
-                        </option>
-                        <option value="50" data-firstprice="664" data-url="digiturk-fiber-internet-50-mbps" data-title="Digiturk Fiber İnternet 50 Mbps">
-                            50 Mbps
-                        </option>
-                        <option value="100" data-firstprice="704" data-url="digiturk-fiber-internet-100-mbps" data-title="Digiturk Fiber İnternet 100 Mbps">
-                            100 Mbps
-                        </option>
-                        <option value="200" data-firstprice="804" data-url="digiturk-fiber-internet-200-mbps" data-title="Digiturk Fiber İnternet 200 Mbps">
-                            200 Mbps
-                        </option>
-                        <option value="500" data-firstprice="954" data-url="digiturk-fiber-internet-500-mbps" data-title="Digiturk Fiber İnternet 500 Mbps">
-                            500 Mbps
-                        </option>
-                        <option value="1000" data-firstprice="1154" data-url="digiturk-fiber-internet-1000-mbps" data-title="Digiturk Fiber İnternet 1000 Mbps">
-                            1000 Mbps
-                        </option>
-                    </select>
-                </div>
-
-                <div style="text-shadow:-1px -1px 0 #000, 1px -1px 0 #000, -1px  1px 0 #000, 1px  1px 0 #000;">
-                    <!-- Dinamik Fiyat -->
-                    <div class="mt-3 text-center text-white">
-                        <div class="text-xl font-bold text-white">
-                            12 Ay Sabit <span class="first-price">574</span>₺
-                        </div>
-
-                    </div>
-
-                    <!-- Özellikler -->
-                    <div class="text-sm mt-2">12 Ay Boyunca Trendyol Süperlig dahil</div>
-                    <div class="text-sm mt-2">Trendyol 1. Lig ve Basketbol Maçları</div>
-                    <div class="text-sm mt-2">Premier League , Fransa Ligue 1, Bundesliga</div>
-                    <div class="text-sm mt-2">beIN CONNECT ile dilediğin yerde izle!</div>
-
-                </div>
-            </div>
-
-            <!-- Fiyat ve Butonlar -->
-            <div class="mt-4 space-y-3">
-                <div class="flex flex-col gap-2">
-                    <button onclick="openModal()" class="bg-gradient-to-r from-purple-400 to-blue-800 hover:from-purpıle-600 hover:to-blue-800 text-white font-semibold py-3 px-6 rounded-lg transition-all transform hover:scale-105 shadow-lg hover:shadow-xl flex items-center gap-2">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
-                        </svg>
-                        Hemen Başvur
-                    </button>
-                    <a class="detail-link text-center text-white py-2 px-4 rounded-lg transition-colors inline-flex items-center justify-center" href="/digiturk-fiber-internet-35-mbps">
-                        Detaylı İncele
-                        <i class="fas fa-arrow-right ml-2"></i>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-<script>
-    document.querySelectorAll('.package-selector').forEach(select => {
-        // Sayfa yüklendiğinde tetikle
-        updateCard(select);
-        select.addEventListener('change', function() {
-            updateCard(this);
-        });
-    });
-
-    function updateCard(selectElement) {
-        const card = selectElement.closest('.package-card');
-        const selectedOption = selectElement.options[selectElement.selectedIndex];
-
-        // Fiyat ve firma bilgisini güncelle
-        card.querySelector('.first-price').textContent = selectedOption.dataset.firstprice;
-
-        // Title bilgisini güncelle
-        const titleElement = card.querySelector('.package-title');
-        if(titleElement) {
-            titleElement.textContent = selectedOption.dataset.title;
-        }
-
-        // URL'nin dinamik olarak güncellenmesi:
-        const detailLink = card.querySelector('.detail-link');
-        if (detailLink) {
-            const newUrl = "/" + selectedOption.dataset.url; //url başında / olmalı
-            detailLink.setAttribute('href', newUrl);
-        }
-    }
-</script>
-
-<style>
-    .package-selector {
-        -webkit-appearance: none;
-        -moz-appearance: none;
-        appearance: none;
-        background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
-        background-repeat: no-repeat;
-        background-position: right 0.75rem center;
-        background-size: 1.2em;
-    }
-</style>
-
-
+@await Component.InvokeAsync("InternetPackage")
 
 <section class="py-16">
     <div class="container mx-auto px-4">
@@ -798,7 +25,6 @@
         </h2>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <!-- Kart 1 -->
             <div class="group p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 animate-fade-in-up hover:-translate-y-2 flex flex-col items-center text-center">
                 <div class="mb-6">
                     <img src="images/feature-01b.png" class="w-20 h-20 object-contain animate-bounce-slow" alt="Kesintisiz Bağlantı" loading="lazy">
@@ -809,7 +35,6 @@
                 </p>
             </div>
 
-            <!-- Kart 2 -->
             <div class="group p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 animate-fade-in-up hover:-translate-y-2 delay-100 flex flex-col items-center text-center">
                 <div class="mb-6">
                     <img src="images/game.png" class="w-20 h-20 object-contain animate-bounce-slow" alt="Oyun Deneyimi" loading="lazy">
@@ -820,7 +45,6 @@
                 </p>
             </div>
 
-            <!-- Kart 3 -->
             <div class="group p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 animate-fade-in-up hover:-translate-y-2 delay-200 flex flex-col items-center text-center">
                 <div class="mb-6">
                     <img src="images/movie.png" class="w-20 h-20 object-contain animate-bounce-slow" alt="Film Keyfi" loading="lazy">
@@ -831,7 +55,6 @@
                 </p>
             </div>
 
-            <!-- Kart 4 -->
             <div class="group p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 animate-fade-in-up hover:-translate-y-2 delay-300 flex flex-col items-center text-center">
                 <div class="mb-6">
                     <img src="images/music.png" class="w-20 h-20 object-contain animate-bounce-slow" alt="Müzik Keyfi" loading="lazy">
@@ -849,7 +72,6 @@
 <section class="py-16 flex justify-center">
     <div class="max-w-7xl w-full px-4">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <!-- Sol Sütun - İçerik -->
             <div class="space-y-6">
                 <h2 class="max-sm:text-center text-3xl md:text-4xl font-bold text-purple-500">
                     Tüm Türkiye'de Güvenli ve Hızlı Bağlantı
@@ -859,7 +81,6 @@
                     Digiturk ev interneti ile sınırsız kotasız yüksek hızda fiber bağlantı keyfini yaşayın ve internetin gücünü evinize getirin.
                 </p>
 
-                <!-- İstatistikler -->
                 <div class="grid grid-cols-2 gap-8 mt-8">
                     <div class="text-center">
                         <div class="text-4xl font-bold text-purple-500 mb-2">100%</div>
@@ -876,13 +97,10 @@
                 </button>
             </div>
 
-            <!-- Sağ Sütun - Görseller -->
             <div class="hidden lg:block relative">
-                <!-- Harita Görseli ve Markerlar -->
                 <div class="relative">
                     <img src="images/world-map-04.png" class="w-full h-auto" alt="Türkiye Kapsama Alanı" loading="lazy">
 
-                    <!-- Basit Marker Örnekleri -->
                     <div class="absolute top-20 left-20">
                         <img src="images/pinned.png" class="w-12 h-auto" alt="Lokasyon" loading="lazy">
                     </div>
@@ -896,7 +114,6 @@
                         <img src="images/pinned.png" class="w-12 h-auto" alt="Lokasyon" loading="lazy">
                     </div>
 
-                    <!-- Composite Marker: Profil ve Hız Bilgisi -->
                     <div class="absolute top-10 right-60 flex flex-col space-y-4">
                         <div class="bg-white p-3 rounded-xl shadow-md">
                             <div class="flex items-center gap-3">
@@ -915,17 +132,14 @@
     </div>
 </section>
 <section class="py-12">
-    <!-- Bu wrapper, maksimum genişliği sınırlar, ortalar ve kenarları yuvarlatır -->
     <div class="max-w-7xl mx-auto rounded-lg overflow-hidden bg-white/10 p-4 border border-white/30">
         <div class="px-4 py-12">
             <div class="flex flex-col items-center text-center space-y-8">
-                <!-- Açıklama Metni -->
                 <p class="text-white text-lg leading-relaxed">
                     Digiturk ev interneti fiyatları ve güncel kampanyalar hakkında bilgi almak için bize ulaşın.
                     Sunduğumuz hizmetler ve yeni abonelik fırsatlarıyla size en iyi çözümleri sunmaya hazırız!
                 </p>
 
-                <!-- Buton -->
                 <button class="bg-white text-purple-800 hover:bg-purple-50 font-semibold py-3 px-8 rounded-lg shadow-lg transition-all duration-300 transform hover:scale-105" onclick="openModal()">
                     Hemen Başvur
                 </button>
@@ -934,47 +148,46 @@
     </div>
 </section>
 
-<!-- Form -->
 <div id="form-container" class="fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center z-50 hidden" onclick="closeModal(event)">
-    <!-- Modal Content -->
     <div class="bg-white w-full max-w-lg rounded-lg shadow-lg p-6 relative" onclick="event.stopPropagation()">
         <div class="text-center">
             <h2 class="text-2xl font-bold text-gray-800 mb-4">Sizi Arayalım</h2>
             <p class="text-gray-600 mb-6">Kampanyalarımız ve tüm gelişmeler hakkında detaylı bilgi almak için formu doldurun, hemen sizi arayalım.</p>
         </div>
         <form method="post" class="space-y-4" action="/">
-
-            <!-- İsim Soyisim -->
             <div>
-                <label class="block text-sm font-medium text-gray-700">Ad Soyad</label>
-
-                <input type="text" id="name" maxlength="30" class="w-full mt-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-purple-500 focus:border-purple-500" placeholder="Ad ve soyadınızı girin" required="" data-val="true" data-val-required="The FullName field is required." name="FullName" value="">
+                <label asp-for="FullName" class="block text-sm font-medium text-gray-700">Ad Soyad</label>
+                <input asp-for="FullName" type="text" maxlength="30" class="w-full mt-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-purple-500 focus:border-purple-500" placeholder="Ad ve soyadınızı girin" />
+                <span asp-validation-for="FullName" class="text-red-600 text-sm"></span>
             </div>
-            <!-- Telefon Numarası -->
             <div>
-                <label class="block text-sm font-medium text-gray-700">Telefon</label>
-
-                <input type="tel" id="phone" pattern="5[0-9]{9}" maxlength="10" minlength="10" class="w-full mt-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-purple-500 focus:border-purple-500" placeholder="(5__) ___ __ __" required="" data-val="true" data-val-required="The PhoneNumber field is required." name="PhoneNumber" value="">
+                <label asp-for="PhoneNumber" class="block text-sm font-medium text-gray-700">Telefon</label>
+                <input asp-for="PhoneNumber" type="tel" pattern="5[0-9]{9}" maxlength="10" minlength="10" class="w-full mt-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-purple-500 focus:border-purple-500" placeholder="(5__) ___ __ __" />
+                <span asp-validation-for="PhoneNumber" class="text-red-600 text-sm"></span>
                 <small class="text-gray-500">Telefon numaranızı başında "0" olmadan giriniz.</small>
             </div>
-            <!-- Açık Rıza -->
             <div class="flex items-start space-x-2">
-                <input type="checkbox" id="consent" name="consent" class="mt-1" required="" checked="">
-                <label for="consent" class="text-sm text-gray-600">
+                <input asp-for="Consent" type="checkbox" class="mt-1" />
+                <label asp-for="Consent" class="text-sm text-gray-600">
                     <a class="text-purple-500 underline" href="/acik-riza">Açık Rıza Metni</a> ve
                     <a class="text-purple-500 underline" href="/aydinlatma-metni">Aydınlatma Metni</a>'ni okudum ve onaylıyorum.
                 </label>
+                <span asp-validation-for="Consent" class="text-red-600 text-sm"></span>
             </div>
-            <!-- Gönder Butonu -->
             <div>
                 <button type="submit" class="w-full bg-purple-600 text-white py-2 rounded-lg hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-400 focus:ring-offset-2">
                     Gönder
                 </button>
             </div>
-            <input name="__RequestVerificationToken" type="hidden" value="CfDJ8G6PMYHNRWhNjScx-llGb9dLoMzybEtT56Czidyvf3JIPAlUh9GZlnXYO_g9Kmb-jWbi53cKEjvNFCV_mvD-Bm0uhvuCP_0z861kVgmVfIPvtUlpIXS_sYR_-hEphHfMWwYZZfJxgMMsaopPIbiQDkc">
         </form>
     </div>
 </div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
 
 <script>
     // Form açma/kapatma fonksiyonları

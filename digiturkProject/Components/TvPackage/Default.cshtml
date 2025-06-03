@@ -1,0 +1,61 @@
+﻿@model List<digiturkProject.Components.ViewComponents.TvPackageViewComponent.TvPackage> // Proje adınıza göre değiştirin
+
+<section class="mx-auto max-w-[1200px] mb-16 mt-16">
+    <div class="text-center mb-10 px-4">
+        <h2 class="text-3xl md:text-4xl font-bold text-white mb-4 relative pb-4" style="text-shadow:-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;">
+            Popüler Digiturk TV Paketleri
+            <span class="block absolute bottom-0 left-1/2 transform -translate-x-1/2 w-80 h-1 bg-gradient-to-r from-purple-500 to-orange-500 rounded-full"></span>
+        </h2>
+        <p class="text-white text-lg md:text-xl mt-4 max-w-2xl mx-auto" style="text-shadow:-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;">
+            Digiturk TV ile yüksek hıza ve zengin içerik dünyasına adım atın, size en uygun paketi şimdi seçin!
+        </p>
+    </div>
+</section>
+
+<section class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 justify-center items-stretch mt-5 mx-auto max-w-[1200px] pb-24">
+
+    @foreach (var package in Model)
+    {
+        <div class="bg-white/20 p-4 border border-white/30 rounded-lg shadow-md backdrop-blur-md hover:shadow-lg transition-shadow flex flex-col h-full">
+            <div class="relative">
+                <div class="absolute top-0 left-0 bg-purple-600 text-white py-1 px-3 text-xs rounded-r-lg">
+                    @package.BadgeLeft
+                </div>
+                <div class="absolute top-0 right-0 bg-red-600 text-white py-1 px-3 text-xs rounded-l-lg">
+                    @package.BadgeRight
+                </div>
+                <img src="@package.ImageSrc" alt="@package.ImageAlt" loading="lazy" class="w-full h-48 object-cover rounded-lg">
+                <div class="p-2 text-center" style="text-shadow:-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;">
+                    <h3 class="text-lg font-semibold text-white">@package.Title</h3>
+                    @foreach (var feature in package.Features)
+                    {
+                        <div class="text-sm text-white mt-2">
+                            @feature
+                        </div>
+                    }
+                </div>
+            </div>
+            <div class="mt-4 space-y-3 mt-auto" style="text-shadow:-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;">
+                <div class="text-white text-center text-2xl font-bold"><strong>@package.Price</strong></div>
+                <div class="flex flex-col gap-2">
+                    <button onclick="openModal()" class="bg-gradient-to-r from-purple-400 to-blue-800 hover:from-purple-600 hover:to-blue-800 text-white font-semibold py-3 px-6 rounded-lg transition-all transform hover:scale-105 shadow-lg hover:shadow-xl flex items-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                        </svg>
+                        fringilla lacus nec metus
+                    </button>
+                    <a class="bg-gradient-to-r from-pink-500 to-blue-800 hover:from-purple-600 hover:to-blue-800 text-white font-semibold py-3 px-6 rounded-lg transition-all transform hover:scale-105 shadow-lg hover:shadow-xl flex items-center gap-2" href="/secim">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                        </svg>
+                        Satın Al Anında İzle
+                    </a>
+                    <a class="text-center text-white py-2 px-4 rounded-lg transition-colors inline-flex items-center justify-center" href="@package.DetailLink">
+                        Detayları incele test
+                        <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    }
+</section>
