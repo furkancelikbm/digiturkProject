@@ -1,0 +1,43 @@
+﻿@{
+    ViewData["Title"] = "Yönetim Paneli";
+}
+
+<div class="bg-white p-8 rounded-xl shadow-lg">
+    <h2 class="text-3xl font-bold text-gray-800 mb-6">Yönetim Paneline Hoş Geldiniz!</h2>
+    <p class="text-gray-600 text-lg mb-8">Web sitenizin farklı bölümlerini yönetmek için soldaki navigasyonu kullanın.</p>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <a href="@Url.Action("Matches", "Dashboard", new { area = "Admin" })" class="admin-card bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white">
+            <i class="fas fa-futbol text-4xl mb-4"></i>
+            <span class="text-xl font-semibold">Maçları Yönet</span>
+        </a>
+        <a href="@Url.Action("TvPackages", "Dashboard", new { area = "Admin" })" class="admin-card bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white">
+            <i class="fas fa-tv text-4xl mb-4"></i>
+            <span class="text-xl font-semibold">TV Paketlerini Yönet</span>
+        </a>
+        <a href="@Url.Action("InternetPackages", "Dashboard", new { area = "Admin" })" class="admin-card bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 text-white">
+            <i class="fas fa-wifi text-4xl mb-4"></i>
+            <span class="text-xl font-semibold">İnternet Paketlerini Yönet</span>
+        </a>
+    </div>
+</div>
+
+<style>
+    .admin-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 2.5rem;
+        border-radius: 1rem;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease-in-out;
+        text-align: center;
+        min-height: 180px; /* Kartların yüksekliğini sabitle */
+    }
+
+        .admin-card:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+</style>

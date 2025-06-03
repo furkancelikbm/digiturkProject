@@ -1,0 +1,59 @@
+﻿@model IEnumerable<digiturkProject.Models.Match>
+
+@{
+    ViewData["Title"] = "Maçları Yönet";
+}
+
+<div class="bg-white p-8 rounded-xl shadow-lg">
+    <div class="flex justify-between items-center mb-6">
+        <h2 class="text-3xl font-bold text-gray-800">Maçlar</h2>
+        <a href="@Url.Action("CreateMatch", "Dashboard", new { area = "Admin" })" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2.5 px-5 rounded-lg shadow-md transition duration-300 ease-in-out flex items-center">
+            <i class="fas fa-plus mr-2"></i> Yeni Maç Oluştur
+        </a>
+    </div>
+
+    <div class="overflow-x-auto rounded-lg border border-gray-200 shadow-sm">
+        <table class="min-w-full divide-y divide-gray-200">
+            <thead class="bg-gray-50">
+                <tr>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Lig</th>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Zaman</th>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Ev Sahibi Takım</th>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Deplasman Takımı</th>
+                    <th scope="col" class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">İşlemler</th>
+                </tr>
+            </thead>
+            <tbody class="bg-white divide-y divide-gray-200">
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">@Html.DisplayFor(modelItem => item.League)</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">@Html.DisplayFor(modelItem => item.Time)</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                            <div class="flex items-center">
+                                <img src="/@item.HomeTeamImage" alt="@item.HomeTeamName" class="w-9 h-9 rounded-full mr-3 object-cover border border-gray-200 shadow-sm">
+                                @Html.DisplayFor(modelItem => item.HomeTeamName)
+                            </div>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                            <div class="flex items-center">
+                                <img src="/@item.AwayTeamImage" alt="@item.AwayTeamName" class="w-9 h-9 rounded-full mr-3 object-cover border border-gray-200 shadow-sm">
+                                @Html.DisplayFor(modelItem => item.AwayTeamName)
+                            </div>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-center text-sm font-medium">
+                            <div class="flex justify-center space-x-3">
+                                <a href="@Url.Action("EditMatch", "Dashboard", new { area = "Admin", id = item.Id })" class="text-indigo-600 hover:text-indigo-900 transition duration-150 ease-in-out" title="Düzenle">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                <a href="@Url.Action("DeleteMatch", "Dashboard", new { area = "Admin", id = item.Id })" class="text-red-600 hover:text-red-900 transition duration-150 ease-in-out" title="Sil">
+                                    <i class="fas fa-trash-alt"></i>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

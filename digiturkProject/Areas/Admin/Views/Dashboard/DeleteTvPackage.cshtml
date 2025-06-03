@@ -1,0 +1,50 @@
+﻿@model digiturkProject.Models.TvPackage
+
+@{
+    ViewData["Title"] = "TV Paketini Sil";
+}
+
+<div class="bg-white p-8 rounded-xl shadow-lg max-w-xl mx-auto">
+    <h2 class="text-3xl font-bold text-gray-800 mb-6 text-center">TV Paketini Sil</h2>
+
+    <div class="bg-red-50 border border-red-200 text-red-700 p-4 rounded-lg mb-6">
+        <p class="font-semibold text-lg mb-2">Bu öğeyi silmek istediğinizden emin misiniz?</p>
+        <p class="text-sm">Bu işlem geri alınamaz.</p>
+    </div>
+
+    <div class="border border-gray-200 rounded-lg p-6 mb-6 bg-gray-50">
+        <dl class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-4 text-gray-700">
+            <div>
+                <dt class="font-semibold text-gray-600">Başlık:</dt>
+                <dd class="mt-1 text-gray-900">@Html.DisplayFor(model => model.Title)</dd>
+            </div>
+
+            <div>
+                <dt class="font-semibold text-gray-600">Fiyat:</dt>
+                <dd class="mt-1 text-gray-900">@Html.DisplayFor(model => model.Price)</dd>
+            </div>
+
+            <div>
+                <dt class="font-semibold text-gray-600">Görsel Kaynağı:</dt>
+                <dd class="mt-1">
+                    <img src="/@Model.ImageSrc" alt="@Model.ImageAlt" class="w-20 h-auto object-cover rounded-md border border-gray-200 shadow-sm">
+                </dd>
+            </div>
+
+            <div class="sm:col-span-2">
+                <dt class="font-semibold text-gray-600">Özellikler:</dt>
+                <dd class="mt-1 text-gray-900">@Html.DisplayFor(model => model.FeaturesJson)</dd>
+            </div>
+        </dl>
+    </div>
+
+    <form asp-area="Admin" asp-controller="Dashboard" asp-action="DeleteTvPackage" method="post" class="flex justify-end space-x-3">
+        <input type="hidden" asp-for="Id" />
+        <button type="submit" class="bg-red-600 hover:bg-red-700 text-white font-semibold py-2.5 px-5 rounded-lg shadow-md transition duration-300 ease-in-out flex items-center">
+            <i class="fas fa-trash-alt mr-2"></i> Sil
+        </button>
+        <a href="@Url.Action("TvPackages", "Dashboard", new { area = "Admin" })" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-2.5 px-5 rounded-lg shadow-md transition duration-300 ease-in-out flex items-center">
+            <i class="fas fa-arrow-left mr-2"></i> Listeye Geri Dön
+        </a>
+    </form>
+</div>

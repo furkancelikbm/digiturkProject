@@ -61,6 +61,15 @@ app.UseRouting();
 
 app.UseAuthorization();
 
+// Admin Area için yeni rota tanımı
+app.MapControllerRoute(
+    name: "AdminArea",
+    pattern: "{area:exists}/{controller=Dashboard}/{action=Index}/{id?}");
+
+app.MapControllerRoute(
+    name: "BossayfaArea",
+    pattern: "{area:exists}/{controller=Bossayfa}/{action=Index}/{id?}");
+
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");

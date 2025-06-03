@@ -1,0 +1,143 @@
+﻿@model digiturkProject.Models.InternetPackage
+
+@{
+    ViewData["Title"] = "İnternet Paketi Oluştur";
+}
+
+<div class="bg-white p-8 rounded-xl shadow-lg max-w-3xl mx-auto">
+    <h2 class="text-3xl font-bold text-gray-800 mb-6 text-center">Yeni İnternet Paketi Oluştur</h2>
+
+    <form asp-area="Admin" asp-controller="Dashboard" asp-action="CreateInternetPackage" method="post" class="space-y-5">
+        <div asp-validation-summary="ModelOnly" class="text-red-600 text-sm p-3 bg-red-50 rounded-md border border-red-200 mb-4"></div>
+
+        <div>
+            <label asp-for="ImageSrc" class="block text-sm font-medium text-gray-700 mb-1">Görsel Kaynak Yolu (örn: images/digiturk-ev-interneti.webp)</label>
+            <input asp-for="ImageSrc" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 px-4 py-2" placeholder="images/digiturk-ev-interneti.webp" />
+            <span asp-validation-for="ImageSrc" class="text-red-500 text-xs mt-1"></span>
+        </div>
+        <div>
+            <label asp-for="ImageAlt" class="block text-sm font-medium text-gray-700 mb-1">Görsel Alternatif Metni</label>
+            <input asp-for="ImageAlt" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 px-4 py-2" placeholder="Digiturk Ev İnterneti" />
+            <span asp-validation-for="ImageAlt" class="text-red-500 text-xs mt-1"></span>
+        </div>
+        <div>
+            <label asp-for="BaseTitle" class="block text-sm font-medium text-gray-700 mb-1">Ana Başlık</label>
+            <input asp-for="BaseTitle" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 px-4 py-2" placeholder="Digiturk Ev İnterneti" />
+            <span asp-validation-for="BaseTitle" class="text-red-500 text-xs mt-1"></span>
+        </div>
+        <div>
+            <label asp-for="Disclaimer" class="block text-sm font-medium text-gray-700 mb-1">Feragatname</label>
+            <input asp-for="Disclaimer" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 px-4 py-2" placeholder="1500 TL'ye kadar cayma bedeli Digiturk'ten!" />
+            <span asp-validation-for="Disclaimer" class="text-red-500 text-xs mt-1"></span>
+        </div>
+        <div>
+            <label asp-for="BadgeLeft" class="block text-sm font-medium text-gray-700 mb-1">Sol Rozet (İsteğe Bağlı)</label>
+            <input asp-for="BadgeLeft" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 px-4 py-2" placeholder="Online'a Özel" />
+            <span asp-validation-for="BadgeLeft" class="text-red-500 text-xs mt-1"></span>
+        </div>
+        <div>
+            <label asp-for="BadgeRight" class="block text-sm font-medium text-gray-700 mb-1">Sağ Rozet (İsteğe Bağlı)</label>
+            <input asp-for="BadgeRight" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 px-4 py-2" placeholder="TV+İnternet" />
+            <span asp-validation-for="BadgeRight" class="text-red-500 text-xs mt-1"></span>
+        </div>
+        <div>
+            <label asp-for="FeaturesJson" class="block text-sm font-medium text-gray-700 mb-1">Özellikler (JSON Dizi Metni, örn: ["Özellik 1", "Özellik 2"])</label>
+            <textarea asp-for="FeaturesJson" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 px-4 py-2 h-32" placeholder='["12 Ay Boyunca Trendyol Süperlig dahil", "Trendyol 1. Lig ve Basketbol Maçları"]'></textarea>
+            <span asp-validation-for="FeaturesJson" class="text-red-500 text-xs mt-1"></span>
+        </div>
+
+        <h3 class="text-xl font-semibold text-gray-800 mt-8 mb-4 border-b pb-2">Hız Seçenekleri</h3>
+        <div id="speedOptionsContainer" class="space-y-4">
+            <!-- Hız seçenekleri buraya JavaScript ile eklenecek -->
+            <div class="flex flex-col md:flex-row items-end md:space-x-2 space-y-3 md:space-y-0 p-3 border border-gray-200 rounded-md bg-gray-50">
+                <div class="flex-1 w-full">
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Değer (örn: 16)</label>
+                    <input type="text" name="speedOptionValues" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 px-4 py-2" />
+                </div>
+                <div class="flex-1 w-full">
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Görüntüleme Metni (örn: 16 Mbps)</label>
+                    <input type="text" name="speedOptionDisplayTexts" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 px-4 py-2" />
+                </div>
+                <div class="flex-1 w-full">
+                    <label class="block text-sm font-medium text-gray-700 mb-1">İlk Fiyat (örn: 459)</label>
+                    <input type="text" name="speedOptionFirstPrices" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 px-4 py-2" />
+                </div>
+                <div class="flex-1 w-full">
+                    <label class="block text-sm font-medium text-gray-700 mb-1">URL</label>
+                    <input type="text" name="speedOptionUrls" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 px-4 py-2" />
+                </div>
+                <div class="flex-1 w-full">
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Başlık</label>
+                    <input type="text" name="speedOptionTitles" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 px-4 py-2" />
+                </div>
+                <button type="button" onclick="removeSpeedOption(this)" class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-3 rounded-md transition duration-300 ease-in-out w-full md:w-auto">
+                    <i class="fas fa-minus-circle"></i>
+                </button>
+            </div>
+        </div>
+        <button type="button" onclick="addSpeedOption()" class="bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-2.5 px-5 rounded-lg shadow-md transition duration-300 ease-in-out mt-4 flex items-center">
+            <i class="fas fa-plus mr-2"></i> Hız Seçeneği Ekle
+        </button>
+
+
+        <div class="flex justify-end space-x-3 mt-8">
+            <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2.5 px-5 rounded-lg shadow-md transition duration-300 ease-in-out flex items-center">
+                <i class="fas fa-save mr-2"></i> Oluştur
+            </button>
+            <a href="@Url.Action("InternetPackages", "Dashboard", new { area = "Admin" })" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-2.5 px-5 rounded-lg shadow-md transition duration-300 ease-in-out flex items-center">
+                <i class="fas fa-arrow-left mr-2"></i> Listeye Geri Dön
+            </a>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script>
+        function addSpeedOption(value = '', displayText = '', firstPrice = '', url = '', title = '') {
+            const container = document.getElementById('speedOptionsContainer');
+            const div = document.createElement('div');
+            div.className = 'flex flex-col md:flex-row items-end md:space-x-2 space-y-3 md:space-y-0 p-3 border border-gray-200 rounded-md bg-gray-50';
+            div.innerHTML = `
+                <div class="flex-1 w-full">
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Değer (örn: 16)</label>
+                    <input type="text" name="speedOptionValues" value="${value}" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 px-4 py-2" />
+                </div>
+                <div class="flex-1 w-full">
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Görüntüleme Metni (örn: 16 Mbps)</label>
+                    <input type="text" name="speedOptionDisplayTexts" value="${displayText}" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 px-4 py-2" />
+                </div>
+                <div class="flex-1 w-full">
+                    <label class="block text-sm font-medium text-gray-700 mb-1">İlk Fiyat (örn: 459)</label>
+                    <input type="text" name="speedOptionFirstPrices" value="${firstPrice}" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 px-4 py-2" />
+                </div>
+                <div class="flex-1 w-full">
+                    <label class="block text-sm font-medium text-gray-700 mb-1">URL</label>
+                    <input type="text" name="speedOptionUrls" value="${url}" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 px-4 py-2" />
+                </div>
+                <div class="flex-1 w-full">
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Başlık</label>
+                    <input type="text" name="speedOptionTitles" value="${title}" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 px-4 py-2" />
+                </div>
+                <button type="button" onclick="removeSpeedOption(this)" class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-3 rounded-md transition duration-300 ease-in-out w-full md:w-auto">
+                    <i class="fas fa-minus-circle"></i>
+                </button>
+            `;
+            container.appendChild(div);
+        }
+
+        function removeSpeedOption(button) {
+            button.parentNode.remove();
+        }
+
+        // Başlangıçtaki boş hız seçeneğini kaldır (eğer tek ise)
+        document.addEventListener('DOMContentLoaded', function() {
+            const container = document.getElementById('speedOptionsContainer');
+            if (container.children.length === 1 && container.children[0].querySelector('input').value === '') {
+                container.children[0].remove();
+            }
+        });
+    </script>
+}
