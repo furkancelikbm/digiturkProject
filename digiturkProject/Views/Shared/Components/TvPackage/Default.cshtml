@@ -1,7 +1,30 @@
-﻿@model List<digiturkProject.Models.TvPackage> // Namespace'i güncelleyin
-@using System.Text.Json // JsonSerializer için
-@using System.Collections.Generic // List<string>
-    için
+﻿<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digiturk Paketleri</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        body {
+            /* IMPORTANT: For this to work in a real web environment,
+                       'file:///C:/Users/furka/source/repos/digiturkProject/digiturkProject/wwwroot/images/purple-night-ride-4k-qz-min.webp'
+                       needs to be replaced with a web-accessible URL.
+                       E.g., if hosted on your server, it might be '/images/purple-night-ride-4k-qz-min.webp'.
+                    */
+            background-image: url('/images/purple-night-ride-4k-qz-min.webp'); /* Placeholder: Update this path */
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-position: center center;
+        }
+    </style>
+</head>
+<body class="bg-gray-900">
+    @model List<digiturkProject.Models.TvPackage>
+    @using System.Text.Json
+    @using System.Collections.Generic
 
     <section class="mx-auto max-w-[1200px] mb-16 mt-16">
         <div class="text-center mb-10 px-4">
@@ -71,3 +94,5 @@
             </div>
         }
     </section>
+</body>
+</html>
