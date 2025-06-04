@@ -5,13 +5,13 @@ using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration; // IConfiguration için
 using System.IO;
 
-namespace digiturkProject.Data 
+namespace digiturkProject.Data
+{
     public class ApplicationDbContextFactory : IDesignTimeDbContextFactory<ApplicationDbContext>
     {
         public ApplicationDbContext CreateDbContext(string[] args)
         {
             // Build configuration
-            // Bu, appsettings.json dosyasını bulup okumasını sağlar.
             var configuration = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile("appsettings.json")
