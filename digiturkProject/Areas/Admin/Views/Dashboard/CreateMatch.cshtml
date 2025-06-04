@@ -7,7 +7,6 @@
 <div class="bg-white p-8 rounded-xl shadow-lg max-w-2xl mx-auto">
     <h2 class="text-3xl font-bold text-gray-800 mb-6 text-center">Yeni Maç Oluştur</h2>
 
-    // Bu form, "Admin" alanındaki "Dashboard" kontrolcüsündeki "CreateMatch" eylemine POST isteği gönderir.
     <form asp-area="Admin" asp-controller="Dashboard" asp-action="CreateMatch" method="post" class="space-y-5">
         // Model doğrulama hatalarını gösteren bir div.
         <div asp-validation-summary="ModelOnly" class="text-red-600 text-sm p-3 bg-red-50 rounded-md border border-red-200 mb-4"></div>
@@ -15,37 +14,37 @@
         <div>
             <label asp-for="League" class="block text-sm font-medium text-gray-700 mb-1">Lig</label>
             <input asp-for="League" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 px-4 py-2" placeholder="Trendyol Süper Lig" />
-            <span asp-validation-for="League" class="text-red-500 text-xs mt-1"></span> // Lig alanı için doğrulama mesajı.
+            <span asp-validation-for="League" class="text-red-500 text-xs mt-1"></span>
         </div>
         <div>
             <label asp-for="Time" class="block text-sm font-medium text-gray-700 mb-1">Zaman</label>
             <input asp-for="Time" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 px-4 py-2" placeholder="Cuma 20:00" />
-            <span asp-validation-for="Time" class="text-red-500 text-xs mt-1"></span> // Zaman alanı için doğrulama mesajı.
+            <span asp-validation-for="Time" class="text-red-500 text-xs mt-1"></span>
         </div>
         <div>
             <label asp-for="HomeTeamName" class="block text-sm font-medium text-gray-700 mb-1">Ev Sahibi Takım Adı</label>
             <input asp-for="HomeTeamName" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 px-4 py-2" placeholder="Antalyaspor" />
-            <span asp-validation-for="HomeTeamName" class="text-red-500 text-xs mt-1"></span> // Ev sahibi takım adı alanı için doğrulama mesajı.
+            <span asp-validation-for="HomeTeamName" class="text-red-500 text-xs mt-1"></span> 
         </div>
         <div>
             <label asp-for="HomeTeamImage" class="block text-sm font-medium text-gray-700 mb-1">Ev Sahibi Takım Resim Yolu (örn: images/Antalyaspor.webp)</label>
             <input asp-for="HomeTeamImage" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 px-4 py-2" placeholder="images/Antalyaspor.webp" />
-            <span asp-validation-for="HomeTeamImage" class="text-red-500 text-xs mt-1"></span> // Ev sahibi takım resim yolu alanı için doğrulama mesajı.
+            <span asp-validation-for="HomeTeamImage" class="text-red-500 text-xs mt-1"></span> 
         </div>
         <div>
             <label asp-for="AwayTeamName" class="block text-sm font-medium text-gray-700 mb-1">Deplasman Takımı Adı</label>
             <input asp-for="AwayTeamName" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 px-4 py-2" placeholder="Trabzonspor" />
-            <span asp-validation-for="AwayTeamName" class="text-red-500 text-xs mt-1"></span> // Deplasman takımı adı alanı için doğrulama mesajı.
+            <span asp-validation-for="AwayTeamName" class="text-red-500 text-xs mt-1"></span> 
         </div>
         <div>
             <label asp-for="AwayTeamImage" class="block text-sm font-medium text-gray-700 mb-1">Deplasman Takımı Resim Yolu (örn: images/Trabzonspor.webp)</label>
             <input asp-for="AwayTeamImage" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 px-4 py-2" placeholder="images/Trabzonspor.webp" />
-            <span asp-validation-for="AwayTeamImage" class="text-red-500 text-xs mt-1"></span> // Deplasman takımı resim yolu alanı için doğrulama mesajı.
+            <span asp-validation-for="AwayTeamImage" class="text-red-500 text-xs mt-1"></span>
         </div>
         <div>
             <label asp-for="BuyLink" class="block text-sm font-medium text-gray-700 mb-1">Satın Alma Linki</label>
             <input asp-for="BuyLink" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 px-4 py-2" placeholder="/secim" />
-            <span asp-validation-for="BuyLink" class="text-red-500 text-xs mt-1"></span> // Satın alma linki alanı için doğrulama mesajı.
+            <span asp-validation-for="BuyLink" class="text-red-500 text-xs mt-1"></span> 
         </div>
 
         <div class="flex justify-end space-x-3 mt-8">

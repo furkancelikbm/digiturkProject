@@ -7,17 +7,14 @@
     <p class="text-gray-600 text-lg mb-8">Web sitenizin farklı bölümlerini yönetmek için soldaki navigasyonu kullanın.</p>
 
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        // Maçları yönetme kartı.
         <a href="@Url.Action("Matches", "Dashboard", new { area = "Admin" })" class="admin-card bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white">
             <i class="fas fa-futbol text-4xl mb-4"></i>
             <span class="text-xl font-semibold">Maçları Yönet</span>
         </a>
-        // TV paketlerini yönetme kartı.
         <a href="@Url.Action("TvPackages", "Dashboard", new { area = "Admin" })" class="admin-card bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white">
             <i class="fas fa-tv text-4xl mb-4"></i>
             <span class="text-xl font-semibold">TV Paketlerini Yönet</span>
         </a>
-        // İnternet paketlerini yönetme kartı.
         <a href="@Url.Action("InternetPackages", "Dashboard", new { area = "Admin" })" class="admin-card bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 text-white">
             <i class="fas fa-wifi text-4xl mb-4"></i>
             <span class="text-xl font-semibold">İnternet Paketlerini Yönet</span>

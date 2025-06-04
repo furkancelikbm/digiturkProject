@@ -6,8 +6,7 @@
 
 <div class="bg-white p-8 rounded-xl shadow-lg">
     <div class="flex justify-between items-center mb-6">
-        <h2 class="text-3xl font-bold text-gray-800">İnternet Paketleri</h2> // Sayfanın ana başlığı.
-        // Yeni İnternet Paketi oluşturma linki. Admin alanındaki Dashboard kontrolcüsünün CreateInternetPackage eylemine yönlendiririz.
+        <h2 class="text-3xl font-bold text-gray-800">İnternet Paketleri</h2> 
         <a href="@Url.Action("CreateInternetPackage", "Dashboard", new { area = "Admin" })" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2.5 px-5 rounded-lg shadow-md transition duration-300 ease-in-out flex items-center">
             <i class="fas fa-plus mr-2"></i> Yeni İnternet Paketi Oluştur
         </a>
@@ -46,11 +45,9 @@
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap text-center text-sm font-medium">
                             <div class="flex justify-center space-x-3">
-                                // Düzenleme linki.
                                 <a href="@Url.Action("EditInternetPackage", "Dashboard", new { area = "Admin", id = item.Id })" class="text-indigo-600 hover:text-indigo-900 transition duration-150 ease-in-out" title="Düzenle">
                                     <i class="fas fa-edit"></i>
                                 </a>
-                                // Silme linki.
                                 <a href="@Url.Action("DeleteInternetPackage", "Dashboard", new { area = "Admin", id = item.Id })" class="text-red-600 hover:text-red-900 transition duration-150 ease-in-out" title="Sil">
                                     <i class="fas fa-trash-alt"></i>
                                 </a>
