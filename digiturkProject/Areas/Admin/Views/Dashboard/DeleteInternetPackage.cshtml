@@ -1,17 +1,19 @@
-﻿@model digiturkProject.Models.InternetPackage
+﻿@model digiturkProject.Models.InternetPackage // Bu görünüm, silinecek tek bir InternetPackage modeli bekler.
 
 @{
-    ViewData["Title"] = "İnternet Paketini Sil";
+    ViewData["Title"] = "İnternet Paketini Sil"; // Sayfanın tarayıcı sekmesindeki başlığını belirleriz.
 }
 
 <div class="bg-white p-8 rounded-xl shadow-lg max-w-xl mx-auto">
     <h2 class="text-3xl font-bold text-gray-800 mb-6 text-center">İnternet Paketini Sil</h2>
 
+    // Bu bölüm, kullanıcıya silme işleminin geri alınamaz olduğunu bildiren kritik bir uyarı mesajı sunarız.
     <div class="bg-red-50 border border-red-200 text-red-700 p-4 rounded-lg mb-6">
         <p class="font-semibold text-lg mb-2">Bu öğeyi silmek istediğinizden emin misiniz?</p>
         <p class="text-sm">Bu işlem geri alınamaz.</p>
     </div>
 
+    // Bu kısım, silinecek internet paketinin önemli detaylarını gösteririz.
     <div class="border border-gray-200 rounded-lg p-6 mb-6 bg-gray-50">
         <dl class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-4 text-gray-700">
             <div>
@@ -27,6 +29,7 @@
             <div>
                 <dt class="font-semibold text-gray-600">Görsel Kaynağı:</dt>
                 <dd class="mt-1">
+                    // İnternet paketine ait görseli burada gösteririz.
                     <img src="/@Model.ImageSrc" alt="@Model.ImageAlt" class="w-20 h-auto object-cover rounded-md border border-gray-200 shadow-sm">
                 </dd>
             </div>
@@ -39,16 +42,16 @@
             <div class="sm:col-span-2">
                 <dt class="font-semibold text-gray-600">Hız Seçenekleri:</dt>
                 <dd class="mt-1 text-gray-900">
-                    @if (Model.SpeedOptions != null && Model.SpeedOptions.Any())
+                    @if (Model.SpeedOptions != null && Model.SpeedOptions.Any()) // Paketin hız seçenekleri varsa listeleriz.
                     {
                         <ul class="list-disc list-inside space-y-1">
-                            @foreach (var speed in Model.SpeedOptions)
+                            @foreach (var speed in Model.SpeedOptions) // Her bir hız seçeneğinin detaylarını gösteririz.
                             {
                                 <li>@speed.DisplayText (<span class="font-semibold">@speed.FirstPrice ₺</span>)</li>
                             }
                         </ul>
                     }
-                    else
+                    else // Eğer hız seçeneği yoksa bilgilendirici bir mesaj gösteririz.
                     {
                         <span class="text-gray-400 italic">Hız seçeneği bulunmuyor</span>
                     }
@@ -57,11 +60,14 @@
         </dl>
     </div>
 
+    // Bu form, silme işlemini onaylamak için kullanılır. Form gönderildiğinde ilgili eylemi tetikler.
     <form asp-area="Admin" asp-controller="Dashboard" asp-action="DeleteInternetPackage" method="post" class="flex justify-end space-x-3">
-        <input type="hidden" asp-for="Id" />
+        <input type="hidden" asp-for="Id" /> // Silinecek paketin ID'sini gizli bir alanda göndeririz.
+        // Silme işlemini başlatan buton. Tıklanınca form gönderilir.
         <button type="submit" class="bg-red-600 hover:bg-red-700 text-white font-semibold py-2.5 px-5 rounded-lg shadow-md transition duration-300 ease-in-out flex items-center">
             <i class="fas fa-trash-alt mr-2"></i> Sil
         </button>
+        // Kullanıcıyı internet paketi listesine geri döndüren link.
         <a href="@Url.Action("InternetPackages", "Dashboard", new { area = "Admin" })" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-2.5 px-5 rounded-lg shadow-md transition duration-300 ease-in-out flex items-center">
             <i class="fas fa-arrow-left mr-2"></i> Listeye Geri Dön
         </a>

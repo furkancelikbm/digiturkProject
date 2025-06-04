@@ -1,84 +1,72 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using digiturkProject.Models; // Models klasörünüzü buraya ekleyin
-using digiturkProject.Models.Data; // Data klasörünüzü buraya ekleyin
-using System.Linq;
-using System.Threading.Tasks;
-using System.Collections.Generic;
-using System.Text.Json; // JSON serileştirme/deserileştirme için
+﻿using Microsoft.AspNetCore.Mvc; 
+using Microsoft.EntityFrameworkCore; // Veritabanı işlemleri için.
+using digiturkProject.Models; // Genel modelleri içerir.
+using digiturkProject.Models.Data; 
+
 
 namespace digiturkProject.Areas.Admin.Controllers
 {
-    [Area("Admin")] // Bu controller'ın "Admin" alanına ait olduğunu belirtir
+    [Area("Admin")] // Bu kontrolcü "Admin" alanına aittir.
     public class DashboardController : Controller
     {
-        private readonly ApplicationDbContext _context;
+        private readonly ApplicationDbContext _context; // Veritabanı bağlamı.
 
+        // Yapıcı metot: Veritabanı bağlamını enjekte ederiz.
         public DashboardController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // Admin Dashboard Ana Sayfası
+
+        // Admin panelinin ana sayfasını gösteririz.
         public IActionResult Index()
         {
             return View();
         }
 
-        // MARK: - Match CRUD Operations
 
-        // Maçları Listele
+        // Maçları listeleriz.
         public async Task<IActionResult> Matches()
         {
             var matches = await _context.Matches.ToListAsync();
             return View(matches);
         }
 
-        // Yeni Maç Oluştur (GET)
+        // Yeni maç oluşturma sayfasını gösteririz.
         public IActionResult CreateMatch()
         {
             return View();
         }
 
-        // Yeni Maç Oluştur (POST)
+        // Yeni maç POST isteğiyle oluşturulur.
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        [ValidateAntiForgeryToken] // CSRF koruması.
         public async Task<IActionResult> CreateMatch([Bind("League,Time,HomeTeamName,HomeTeamImage,AwayTeamName,AwayTeamImage,BuyLink")] Match match)
         {
-            if (ModelState.IsValid)
+            if (ModelState.IsValid) // Model geçerliyse kaydet.
             {
                 _context.Add(match);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Matches));
             }
-            return View(match);
+            return View(match); // Hatalıysa aynı View'i göster.
         }
 
-        // Maç Düzenle (GET)
+        // Maç düzenleme sayfasını gösteririz.
         public async Task<IActionResult> EditMatch(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
+            if (id == null) return NotFound();
             var match = await _context.Matches.FindAsync(id);
-            if (match == null)
-            {
-                return NotFound();
-            }
+            if (match == null) return NotFound();
             return View(match);
         }
 
-        // Maç Düzenle (POST)
+        // Maç düzenleme POST isteğiyle güncellenir.
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        [ValidateAntiForgeryToken] // CSRF koruması.
         public async Task<IActionResult> EditMatch(int id, [Bind("Id,League,Time,HomeTeamName,HomeTeamImage,AwayTeamName,AwayTeamImage,BuyLink")] Match match)
         {
-            if (id != match.Id)
-            {
-                return NotFound();
-            }
+            if (id != match.Id) return NotFound();
 
             if (ModelState.IsValid)
             {
@@ -87,43 +75,28 @@ namespace digiturkProject.Areas.Admin.Controllers
                     _context.Update(match);
                     await _context.SaveChangesAsync();
                 }
-                catch (DbUpdateConcurrencyException)
+                catch (DbUpdateConcurrencyException) // Çakışma durumunda hata yönetimi.
                 {
-                    if (!MatchExists(match.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
+                    if (!MatchExists(match.Id)) return NotFound();
+                    else throw;
                 }
                 return RedirectToAction(nameof(Matches));
             }
             return View(match);
         }
 
-        // Maç Sil (GET)
+        // Maç silme onay sayfasını gösteririz.
         public async Task<IActionResult> DeleteMatch(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var match = await _context.Matches
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (match == null)
-            {
-                return NotFound();
-            }
-
+            if (id == null) return NotFound();
+            var match = await _context.Matches.FirstOrDefaultAsync(m => m.Id == id);
+            if (match == null) return NotFound();
             return View(match);
         }
 
-        // Maç Sil (POST)
+        // Maç silme POST isteğiyle işlemi onaylarız.
         [HttpPost, ActionName("DeleteMatch")]
-        [ValidateAntiForgeryToken]
+        [ValidateAntiForgeryToken] // CSRF koruması.
         public async Task<IActionResult> DeleteMatchConfirmed(int id)
         {
             var match = await _context.Matches.FindAsync(id);
@@ -135,36 +108,32 @@ namespace digiturkProject.Areas.Admin.Controllers
             return RedirectToAction(nameof(Matches));
         }
 
+        // Maçın var olup olmadığını kontrol ederiz.
         private bool MatchExists(int id)
         {
             return _context.Matches.Any(e => e.Id == id);
         }
 
-        // MARK: - TvPackage CRUD Operations
 
-        // TV Paketlerini Listele
+        // TV Paketlerini listeleriz.
         public async Task<IActionResult> TvPackages()
         {
             var tvPackages = await _context.TvPackages.ToListAsync();
             return View(tvPackages);
         }
 
-        // Yeni TvPackage Oluştur (GET)
+        // Yeni TV paketi oluşturma sayfasını gösteririz.
         public IActionResult CreateTvPackage()
         {
             return View();
         }
 
-        // Yeni TvPackage Oluştur (POST)
+        // Yeni TV paketi POST isteğiyle oluşturulur.
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        [ValidateAntiForgeryToken] // CSRF koruması.
         public async Task<IActionResult> CreateTvPackage([Bind("BadgeLeft,BadgeRight,ImageSrc,ImageAlt,Title,FeaturesJson,Price,DetailLink")] TvPackage tvPackage)
         {
-            // FeaturesJson alanını List<string> olarak alıp serileştirme
-            // Not: Bu modelde FeaturesJson zaten string, bu yüzden doğrudan kullanabiliriz.
-            // Eğer formdan List<string> olarak geliyorsa, burada serileştirme yapmalısınız.
-            // Örneğin: tvPackage.FeaturesJson = JsonSerializer.Serialize(featuresList);
-
+            // FeaturesJson için serileştirme gerekirse burada yapın.
             if (ModelState.IsValid)
             {
                 _context.Add(tvPackage);
@@ -174,31 +143,21 @@ namespace digiturkProject.Areas.Admin.Controllers
             return View(tvPackage);
         }
 
-        // TvPackage Düzenle (GET)
+        // TV paketi düzenleme sayfasını gösteririz.
         public async Task<IActionResult> EditTvPackage(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
+            if (id == null) return NotFound();
             var tvPackage = await _context.TvPackages.FindAsync(id);
-            if (tvPackage == null)
-            {
-                return NotFound();
-            }
+            if (tvPackage == null) return NotFound();
             return View(tvPackage);
         }
 
-        // TvPackage Düzenle (POST)
+        // TV paketi düzenleme POST isteğiyle güncellenir.
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        [ValidateAntiForgeryToken] // CSRF koruması.
         public async Task<IActionResult> EditTvPackage(int id, [Bind("Id,BadgeLeft,BadgeRight,ImageSrc,ImageAlt,Title,FeaturesJson,Price,DetailLink")] TvPackage tvPackage)
         {
-            if (id != tvPackage.Id)
-            {
-                return NotFound();
-            }
+            if (id != tvPackage.Id) return NotFound();
 
             if (ModelState.IsValid)
             {
@@ -207,43 +166,28 @@ namespace digiturkProject.Areas.Admin.Controllers
                     _context.Update(tvPackage);
                     await _context.SaveChangesAsync();
                 }
-                catch (DbUpdateConcurrencyException)
+                catch (DbUpdateConcurrencyException) // Çakışma durumunda hata yönetimi.
                 {
-                    if (!TvPackageExists(tvPackage.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
+                    if (!TvPackageExists(tvPackage.Id)) return NotFound();
+                    else throw;
                 }
                 return RedirectToAction(nameof(TvPackages));
             }
             return View(tvPackage);
         }
 
-        // TvPackage Sil (GET)
+        // TV paketi silme onay sayfasını gösteririz.
         public async Task<IActionResult> DeleteTvPackage(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var tvPackage = await _context.TvPackages
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (tvPackage == null)
-            {
-                return NotFound();
-            }
-
+            if (id == null) return NotFound();
+            var tvPackage = await _context.TvPackages.FirstOrDefaultAsync(m => m.Id == id);
+            if (tvPackage == null) return NotFound();
             return View(tvPackage);
         }
 
-        // TvPackage Sil (POST)
+        // TV paketi silme POST isteğiyle işlemi onaylarız.
         [HttpPost, ActionName("DeleteTvPackage")]
-        [ValidateAntiForgeryToken]
+        [ValidateAntiForgeryToken] // CSRF koruması.
         public async Task<IActionResult> DeleteTvPackageConfirmed(int id)
         {
             var tvPackage = await _context.TvPackages.FindAsync(id);
@@ -255,38 +199,36 @@ namespace digiturkProject.Areas.Admin.Controllers
             return RedirectToAction(nameof(TvPackages));
         }
 
+        // TV paketinin var olup olmadığını kontrol ederiz.
         private bool TvPackageExists(int id)
         {
             return _context.TvPackages.Any(e => e.Id == id);
         }
 
-        // MARK: - InternetPackage CRUD Operations (with SpeedOptions)
 
-        // İnternet Paketlerini Listele
+        // İnternet paketlerini listeleriz (hız seçenekleriyle birlikte).
         public async Task<IActionResult> InternetPackages()
         {
-            // SpeedOptions'ı dahil etmek için Include kullanın
             var internetPackages = await _context.InternetPackages
-                                                 .Include(ip => ip.SpeedOptions)
+                                                 .Include(ip => ip.SpeedOptions) // Hız seçeneklerini dahil et.
                                                  .ToListAsync();
             return View(internetPackages);
         }
 
-        // Yeni InternetPackage Oluştur (GET)
+        // Yeni İnternet paketi oluşturma sayfasını gösteririz.
         public IActionResult CreateInternetPackage()
         {
             return View();
         }
 
-        // Yeni InternetPackage Oluştur (POST)
+        // Yeni İnternet paketi POST isteğiyle oluşturulur.
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        [ValidateAntiForgeryToken] // CSRF koruması.
         public async Task<IActionResult> CreateInternetPackage([Bind("ImageSrc,ImageAlt,BaseTitle,Disclaimer,BadgeLeft,BadgeRight,FeaturesJson")] InternetPackage internetPackage)
         {
+            // FeaturesJson için serileştirme gerekirse burada yapın.
             if (ModelState.IsValid)
             {
-                // FeaturesJson, List<string> olarak geliyorsa burada serileştirme yapın
-                // Örneğin: internetPackage.FeaturesJson = JsonSerializer.Serialize(featuresList);
                 _context.Add(internetPackage);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(InternetPackages));
@@ -294,34 +236,23 @@ namespace digiturkProject.Areas.Admin.Controllers
             return View(internetPackage);
         }
 
-        // InternetPackage Düzenle (GET)
+        // İnternet paketi düzenleme sayfasını gösteririz.
         public async Task<IActionResult> EditInternetPackage(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            // SpeedOptions'ı da yüklemek için Include kullanın
+            if (id == null) return NotFound();
             var internetPackage = await _context.InternetPackages
-                                                 .Include(ip => ip.SpeedOptions)
+                                                 .Include(ip => ip.SpeedOptions) // Hız seçeneklerini dahil et.
                                                  .FirstOrDefaultAsync(ip => ip.Id == id);
-            if (internetPackage == null)
-            {
-                return NotFound();
-            }
+            if (internetPackage == null) return NotFound();
             return View(internetPackage);
         }
 
-        // InternetPackage Düzenle (POST)
+        // İnternet paketi düzenleme POST isteğiyle güncellenir.
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        [ValidateAntiForgeryToken] // CSRF koruması.
         public async Task<IActionResult> EditInternetPackage(int id, [Bind("Id,ImageSrc,ImageAlt,BaseTitle,Disclaimer,BadgeLeft,BadgeRight,FeaturesJson")] InternetPackage internetPackage, string[] speedOptionValues, string[] speedOptionDisplayTexts, string[] speedOptionFirstPrices, string[] speedOptionUrls, string[] speedOptionTitles, int[] speedOptionIds)
         {
-            if (id != internetPackage.Id)
-            {
-                return NotFound();
-            }
+            if (id != internetPackage.Id) return NotFound();
 
             if (ModelState.IsValid)
             {
@@ -329,11 +260,11 @@ namespace digiturkProject.Areas.Admin.Controllers
                 {
                     _context.Update(internetPackage);
 
-                    // SpeedOptions'ı güncelle
+                    // Mevcut hız seçeneklerini silip yenilerini ekleriz.
                     var existingSpeedOptions = await _context.SpeedOptions
                                                              .Where(so => so.InternetPackageId == id)
                                                              .ToListAsync();
-                    _context.SpeedOptions.RemoveRange(existingSpeedOptions); // Mevcutları sil
+                    _context.SpeedOptions.RemoveRange(existingSpeedOptions);
 
                     if (speedOptionValues != null && speedOptionValues.Length > 0)
                     {
@@ -341,7 +272,7 @@ namespace digiturkProject.Areas.Admin.Controllers
                         {
                             if (!string.IsNullOrWhiteSpace(speedOptionValues[i]))
                             {
-                                _context.SpeedOptions.Add(new SpeedOption
+                                _context.SpeedOptions.Add(new SpeedOption // Yeni hız seçeneği ekle.
                                 {
                                     Value = speedOptionValues[i],
                                     DisplayText = speedOptionDisplayTexts[i],
@@ -355,43 +286,28 @@ namespace digiturkProject.Areas.Admin.Controllers
                     }
                     await _context.SaveChangesAsync();
                 }
-                catch (DbUpdateConcurrencyException)
+                catch (DbUpdateConcurrencyException) // Çakışma durumunda hata yönetimi.
                 {
-                    if (!InternetPackageExists(internetPackage.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
+                    if (!InternetPackageExists(internetPackage.Id)) return NotFound();
+                    else throw;
                 }
                 return RedirectToAction(nameof(InternetPackages));
             }
             return View(internetPackage);
         }
 
-        // InternetPackage Sil (GET)
+        // İnternet paketi silme onay sayfasını gösteririz.
         public async Task<IActionResult> DeleteInternetPackage(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var internetPackage = await _context.InternetPackages
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (internetPackage == null)
-            {
-                return NotFound();
-            }
-
+            if (id == null) return NotFound();
+            var internetPackage = await _context.InternetPackages.FirstOrDefaultAsync(m => m.Id == id);
+            if (internetPackage == null) return NotFound();
             return View(internetPackage);
         }
 
-        // InternetPackage Sil (POST)
+        // İnternet paketi silme POST isteğiyle işlemi onaylarız.
         [HttpPost, ActionName("DeleteInternetPackage")]
-        [ValidateAntiForgeryToken]
+        [ValidateAntiForgeryToken] // CSRF koruması.
         public async Task<IActionResult> DeleteInternetPackageConfirmed(int id)
         {
             var internetPackage = await _context.InternetPackages.FindAsync(id);
@@ -403,6 +319,7 @@ namespace digiturkProject.Areas.Admin.Controllers
             return RedirectToAction(nameof(InternetPackages));
         }
 
+        // İnternet paketinin var olup olmadığını kontrol ederiz.
         private bool InternetPackageExists(int id)
         {
             return _context.InternetPackages.Any(e => e.Id == id);

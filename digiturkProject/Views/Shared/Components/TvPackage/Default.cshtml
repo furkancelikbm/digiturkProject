@@ -100,7 +100,7 @@
                 <div class="flex-grow">
                     @{
                         @* package.FeaturesJson alanından özellikler alınır ve JSON olarak deserialize edilir. Eğer boşsa boş bir liste oluşturulur. *@
-                        var features = !string.IsNullOrEmpty(package.FeaturesJson) ? JsonSerializer.Deserialize<List<string>>(package.FeaturesJson) : new List<string>();
+                        var features = !string.IsNullOrEmpty(package.FeaturesJson) ? System.Text.Json.JsonSerializer.Deserialize<List<string>>(package.FeaturesJson) : new List<string>();
                         <ul class="text-white text-sm space-y-2 mb-4">
                             @foreach (var feature in features)
                             {
@@ -150,15 +150,15 @@
     </div>
 
     <script>
-        // Modalın görünürlüğünü ayarlayan JavaScript fonksiyonu.
+        @* Modalın görünürlüğünü ayarlayan JavaScript fonksiyonu. *@
         function openModal() {
-            // 'myModal' ID'sine sahip elementten 'hidden' sınıfı kaldırılır, böylece modal görünür hale gelir.
+            @* 'myModal' ID'sine sahip elementten 'hidden' sınıfı kaldırılır, böylece modal görünür hale gelir. *@
             document.getElementById('myModal').classList.remove('hidden');
         }
 
-        // Modalın gizlenmesini sağlayan JavaScript fonksiyonu.
+        @* Modalın gizlenmesini sağlayan JavaScript fonksiyonu. *@
         function closeModal() {
-            // 'myModal' ID'sine sahip elemente 'hidden' sınıfı eklenir, böylece modal gizlenir.
+            @* 'myModal' ID'sine sahip elemente 'hidden' sınıfı eklenir, böylece modal gizlenir. *@
             document.getElementById('myModal').classList.add('hidden');
         }
     </script>

@@ -1,20 +1,22 @@
-﻿@model digiturkProject.Models.Match
+﻿@model digiturkProject.Models.Match // Bu görünüm, tek bir Match modeli bekler.
 
 @{
-    ViewData["Title"] = "Maçı Düzenle";
+    ViewData["Title"] = "Maçı Düzenle"; // Sayfanın tarayıcı sekmesindeki başlığını belirleriz.
 }
 
 <div class="bg-white p-8 rounded-xl shadow-lg max-w-2xl mx-auto">
     <h2 class="text-3xl font-bold text-gray-800 mb-6 text-center">Maçı Düzenle</h2>
 
+    // Bu form, "Admin" alanındaki "Dashboard" kontrolcüsündeki "EditMatch" eylemine POST isteği gönderir.
     <form asp-area="Admin" asp-controller="Dashboard" asp-action="EditMatch" method="post" class="space-y-5">
+        // Model doğrulama hatalarını gösteren bir div.
         <div asp-validation-summary="ModelOnly" class="text-red-600 text-sm p-3 bg-red-50 rounded-md border border-red-200 mb-4"></div>
-        <input type="hidden" asp-for="Id" />
+        <input type="hidden" asp-for="Id" /> 
 
         <div>
             <label asp-for="League" class="block text-sm font-medium text-gray-700 mb-1">Lig</label>
             <input asp-for="League" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 px-4 py-2" />
-            <span asp-validation-for="League" class="text-red-500 text-xs mt-1"></span>
+            <span asp-validation-for="League" class="text-red-500 text-xs mt-1"></span> 
         </div>
         <div>
             <label asp-for="Time" class="block text-sm font-medium text-gray-700 mb-1">Zaman</label>
@@ -24,33 +26,34 @@
         <div>
             <label asp-for="HomeTeamName" class="block text-sm font-medium text-gray-700 mb-1">Ev Sahibi Takım Adı</label>
             <input asp-for="HomeTeamName" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 px-4 py-2" />
-            <span asp-validation-for="HomeTeamName" class="text-red-500 text-xs mt-1"></span>
+            <span asp-validation-for="HomeTeamName" class="text-red-500 text-xs mt-1"></span> 
         </div>
         <div>
             <label asp-for="HomeTeamImage" class="block text-sm font-medium text-gray-700 mb-1">Ev Sahibi Takım Resim Yolu (örn: images/Antalyaspor.webp)</label>
             <input asp-for="HomeTeamImage" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 px-4 py-2" />
-            <span asp-validation-for="HomeTeamImage" class="text-red-500 text-xs mt-1"></span>
+            <span asp-validation-for="HomeTeamImage" class="text-red-500 text-xs mt-1"></span> 
         </div>
         <div>
             <label asp-for="AwayTeamName" class="block text-sm font-medium text-gray-700 mb-1">Deplasman Takımı Adı</label>
             <input asp-for="AwayTeamName" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 px-4 py-2" />
-            <span asp-validation-for="AwayTeamName" class="text-red-500 text-xs mt-1"></span>
-        </div>
+            <span asp-validation-for="AwayTeamName" class="text-red-500 text-xs mt-1"></span> 
         <div>
             <label asp-for="AwayTeamImage" class="block text-sm font-medium text-gray-700 mb-1">Deplasman Takımı Resim Yolu (örn: images/Trabzonspor.webp)</label>
             <input asp-for="AwayTeamImage" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 px-4 py-2" />
-            <span asp-validation-for="AwayTeamImage" class="text-red-500 text-xs mt-1"></span>
+            <span asp-validation-for="AwayTeamImage" class="text-red-500 text-xs mt-1"></span> // Deplasman takımı resim yolu için doğrulama mesajı.
         </div>
         <div>
             <label asp-for="BuyLink" class="block text-sm font-medium text-gray-700 mb-1">Satın Alma Linki</label>
             <input asp-for="BuyLink" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 px-4 py-2" />
-            <span asp-validation-for="BuyLink" class="text-red-500 text-xs mt-1"></span>
+            <span asp-validation-for="BuyLink" class="text-red-500 text-xs mt-1"></span> 
         </div>
 
         <div class="flex justify-end space-x-3 mt-8">
+            // Kaydet butonu. Formu gönderir.
             <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2.5 px-5 rounded-lg shadow-md transition duration-300 ease-in-out flex items-center">
                 <i class="fas fa-save mr-2"></i> Kaydet
             </button>
+            // Listeye geri dönme linki.
             <a href="@Url.Action("Matches", "Dashboard", new { area = "Admin" })" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-2.5 px-5 rounded-lg shadow-md transition duration-300 ease-in-out flex items-center">
                 <i class="fas fa-arrow-left mr-2"></i> Listeye Geri Dön
             </a>
@@ -60,6 +63,6 @@
 
 @section Scripts {
     @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        await Html.RenderPartialAsync("_ValidationScriptsPartial"); // İstemci tarafı doğrulama scriptlerini ekleriz.
     }
 }

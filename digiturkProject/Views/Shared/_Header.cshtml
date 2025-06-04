@@ -1,11 +1,11 @@
 ﻿<header class="z-50 w-full h-24 shadow-lg bg-gradient-to-r from-purple-950 via-purple-900 to-purple-950">
     <div class="container flex items-center justify-between h-full max-w-7xl px-8 mx-auto sm:justify-between xl:px-0">
-        <!-- Logo -->
+        @* Logo Bölümü *@
         <a class="mt-6 relative flex items-center inline-block h-full font-black leading-none max-sm:mx-auto" href="/">
             <img style="height: auto; width: 200px;" src="~/images/digiturk-beyaz-logo.png" alt="Logo" class="block mx-auto">
         </a>
 
-        <!-- Navigation -->
+        @* Ana Navigasyon Menüsü (Masaüstü) *@
         <nav id="nav" class="absolute top-0 left-0 z-50 flex flex-col items-center justify-between hidden w-full h-auto pt-5 mt-32 text-xs text-white bg-purple-900 md:bg-transparent md:w-auto md:flex-row md:h-32 md:space-x-6 lg:text-sm md:mt-0 md:relative md:flex">
             <div class="flex flex-col items-center flex-1 w-full px-4 space-y-4 md:flex-row md:space-y-0 md:space-x-6 md:px-0">
                 <a class="hover:text-purple-200 transition-colors duration-200 font-semibold" href="/digiturk-tv">Digiturk TV</a>
@@ -22,7 +22,7 @@
             </a>
         </nav>
 
-        <!-- Mobile Navigation Button -->
+        @* Mobil Navigasyon Butonu (Hamburger Menü) *@
         <div id="nav-mobile-btn" class="absolute top-0 right-0 z-50 block w-6 mt-12 mr-10 cursor-pointer select-none md:hidden sm:mt-12">
             <span class="block w-full h-1 mt-2 duration-200 transform bg-white rounded-full sm:mt-1"></span>
             <span class="block w-full h-1 mt-1 duration-200 transform bg-white rounded-full"></span>
@@ -30,7 +30,13 @@
     </div>
 </header>
 
-<!-- Mobile Menu (Hidden by default) -->
+---
+
+### Mobil Menü (Gizli)
+
+Bu bölüm, mobil cihazlarda kullanılan, varsayılan olarak gizli olan açılır menüyü tanımlar. Kullanıcı hamburger simgesine tıkladığında görünür hale gelir ve navigasyon bağlantıları sunar.
+
+```html
 <div id="mobile-nav" class="fixed inset-0 z-40 bg-purple-900 bg-opacity-90 hidden">
     <div class="flex justify-end pt-8 pr-8">
         <div id="close-mobile-nav" class="text-white text-3xl cursor-pointer">×</div>

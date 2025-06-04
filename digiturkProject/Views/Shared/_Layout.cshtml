@@ -10,20 +10,25 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body class="bg-gray-900">
-    @await Html.PartialAsync("_Header") @* Global header *@
+    @* Global başlık (header) partial'ını render ederiz. Bu, sitenin üst kısmındaki navigasyon ve logo gibi öğeleri içerir. *@
+    @await Html.PartialAsync("_Header")
 
     <div class="container mx-auto">
         <main role="main" class="pb-3">
-            @RenderBody() @* Ana sayfa içeriği buraya gelecek *@
+            @* @RenderBody() metodu, ilgili View'in içeriğinin buraya yerleştirilmesini sağlar. Yani her sayfanın dinamik içeriği burada gösterilir. *@
+            @RenderBody()
         </main>
     </div>
 
-    @await Html.PartialAsync("_Footer") @* Global footer *@
-    @await Html.PartialAsync("_FixedButtons") @* Global sabit butonlar *@
+    @* Global altbilgi (footer) partial'ını render ederiz. Bu, telif hakkı, iletişim bilgileri ve diğer alt bağlantıları içerir. *@
+    @await Html.PartialAsync("_Footer")
+    @* Global sabit butonlar partial'ını render ederiz. Bu butonlar, sayfanın alt köşelerinde sabit kalan iletişim ve satın alma butonlarını içerir. *@
+    @await Html.PartialAsync("_FixedButtons")
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    @* @RenderSectionAsync("Scripts", required: false) metodu, belirli View'lerin kendi JavaScript kodlarını veya script referanslarını bu bölüme eklemesine olanak tanır. 'required: false' olması, bu bölümün tüm View'lerde zorunlu olmadığını belirtir. *@
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
