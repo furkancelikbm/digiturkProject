@@ -6,10 +6,10 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text.Json; // JSON serileştirme/deserileştirme için
+using System.Text.Json; 
 
 
-namespace digiturkProject.Data // Proje adınıza göre değiştirin
+namespace digiturkProject.Data 
 {
     public static class SeedData
     {

@@ -5,8 +5,7 @@ using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration; // IConfiguration için
 using System.IO;
 
-namespace digiturkProject.Data // Proje adınıza göre değiştirin
-{
+namespace digiturkProject.Data 
     public class ApplicationDbContextFactory : IDesignTimeDbContextFactory<ApplicationDbContext>
     {
         public ApplicationDbContext CreateDbContext(string[] args)

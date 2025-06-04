@@ -1,7 +1,7 @@
 ﻿// Data/ApplicationDbContext.cs
 using Microsoft.EntityFrameworkCore;
 
-namespace digiturkProject.Models.Data // Proje adınıza göre değiştirin
+namespace digiturkProject.Models.Data 
 {
     public class ApplicationDbContext : DbContext
     {
