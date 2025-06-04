@@ -9,15 +9,39 @@
     <style>
         body {
             /* IMPORTANT: For this to work in a real web environment,
-                       'file:///C:/Users/furka/source/repos/digiturkProject/digiturkProject/wwwroot/images/purple-night-ride-4k-qz-min.webp'
-                       needs to be replaced with a web-accessible URL.
-                       E.g., if hosted on your server, it might be '/images/purple-night-ride-4k-qz-min.webp'.
-                    */
+                                'file:///C:/Users/furka/source/repos/digiturkProject/digiturkProject/wwwroot/images/purple-night-ride-4k-qz-min.webp'
+                                needs to be replaced with a web-accessible URL.
+                                E.g., if hosted on your server, it might be '/images/purple-night-ride-4k-qz-min.webp'.
+                               */
             background-image: url('/images/purple-night-ride-4k-qz-min.webp'); /* Placeholder: Update this path */
             background-size: cover;
             background-repeat: no-repeat;
             background-attachment: fixed;
             background-position: center center;
+        }
+
+        /* Custom glow effect for the cards on hover */
+        .card-glow:hover {
+            box-shadow: 0 0 30px rgba(168, 85, 247, 0.6), 0 0 60px rgba(236, 72, 153, 0.4); /* Purple and Pink glow */
+        }
+
+        /* Custom animation for badges */
+        @@keyframes pulse-once {
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.05);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .animate-pulse-once {
+            animation: pulse-once 0.8s ease-in-out forwards;
         }
     </style>
 </head>
@@ -26,7 +50,7 @@
     @using System.Text.Json
     @using System.Collections.Generic
 
-    <section class="mx-auto max-w-[1200px] mb-16 mt-16">
+    <section class="mx-auto max-w-[1200px] mb-16">
         <div class="text-center mb-10 px-4">
             <h2 class="text-3xl md:text-4xl font-bold text-white mb-4 relative pb-4" style="text-shadow:-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;">
                 Popüler Digiturk TV Paketleri
@@ -38,61 +62,90 @@
         </div>
     </section>
 
-    <section class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 justify-center items-stretch mt-5 mx-auto max-w-[1200px] pb-24">
+    <section class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 justify-center items-stretch mt-5 mx-auto max-w-[1200px] pb-24">
 
         @foreach (var package in Model)
         {
-            <div class="bg-white/20 p-4 border border-white/30 rounded-lg shadow-md backdrop-blur-md hover:shadow-lg transition-shadow flex flex-col h-full">
-                <div class="relative">
+            <div class="bg-white/10 p-6 border border-white/20 rounded-xl shadow-lg backdrop-blur-sm hover:shadow-2xl transition-all duration-300 ease-in-out flex flex-col h-full card-glow">
+                <div class="relative mb-4">
                     @if (!string.IsNullOrEmpty(package.BadgeLeft))
                     {
-                        <div class="absolute top-0 left-0 bg-purple-600 text-white py-1 px-3 text-xs rounded-r-lg">
+                        <div class="absolute top-0 left-0 bg-purple-600 text-white py-1 px-3 text-xs font-semibold rounded-br-lg z-10 animate-pulse-once">
                             @package.BadgeLeft
                         </div>
                     }
                     @if (!string.IsNullOrEmpty(package.BadgeRight))
                     {
-                        <div class="absolute top-0 right-0 bg-red-600 text-white py-1 px-3 text-xs rounded-l-lg">
+                        <div class="absolute top-0 right-0 bg-red-600 text-white py-1 px-3 text-xs font-semibold rounded-bl-lg z-10 animate-pulse-once">
                             @package.BadgeRight
                         </div>
                     }
-                    <img src="@package.ImageSrc" alt="@package.ImageAlt" loading="lazy" class="w-full h-48 object-cover rounded-lg">
-                    <div class="p-2 text-center" style="text-shadow:-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;">
-                        <h3 class="text-lg font-semibold text-white">@package.Title</h3>
-                        @{
-                            var features = !string.IsNullOrEmpty(package.FeaturesJson) ? JsonSerializer.Deserialize<List<string>>(package.FeaturesJson) : new List<string>();
-                            foreach (var feature in features)
-                            {
-                                <div class="text-sm text-white mt-2">
-                                    @feature
-                                </div>
-                            }
-                        }
-                    </div>
+                    <img src="@package.ImageSrc" alt="@package.ImageAlt" loading="lazy" class="w-full h-56 object-cover rounded-lg transform hover:scale-102 transition-transform duration-300">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent rounded-lg"></div>
                 </div>
-                <div class="mt-4 space-y-3 mt-auto" style="text-shadow:-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;">
-                    <div class="text-white text-center text-2xl font-bold"><strong>@package.Price</strong></div>
-                    <div class="flex flex-col gap-2">
-                        <button onclick="openModal()" class="bg-gradient-to-r from-purple-400 to-blue-800 hover:from-purple-600 hover:to-blue-800 text-white font-semibold py-3 px-6 rounded-lg transition-all transform hover:scale-105 shadow-lg hover:shadow-xl flex items-center gap-2">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <div class="text-center mb-4">
+                    <h3 class="text-2xl font-bold text-white" style="text-shadow: 0 0 8px #000;">@package.Title</h3>
+                </div>
+
+                <div class="flex-grow">
+                    @{
+                        var features = !string.IsNullOrEmpty(package.FeaturesJson) ? JsonSerializer.Deserialize<List<string>>(package.FeaturesJson) : new List<string>();
+                        <ul class="text-white text-sm space-y-2 mb-4">
+                            @foreach (var feature in features)
+                            {
+                                <li class="flex items-center">
+                                    <i class="fas fa-check-circle text-green-400 mr-2"></i>
+                                    <span style="text-shadow: 0 0 3px #000;">@feature</span>
+                                </li>
+                            }
+                        </ul>
+                    }
+                </div>
+
+                <div class="mt-auto pt-4 border-t border-white/20">
+                    <div class="text-white text-center text-3xl font-extrabold mb-4" style="text-shadow: 0 0 10px rgba(0,0,0,0.8);">
+                        <strong>@package.Price</strong>
+                    </div>
+                    <div class="flex flex-col gap-3">
+                        <button onclick="openModal()" class="w-full bg-gradient-to-r from-purple-500 to-blue-600 hover:from-purple-600 hover:to-blue-700 text-white font-bold py-3 px-6 rounded-xl transition-all duration-300 transform hover:scale-105 shadow-lg flex items-center justify-center gap-2 group">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 transform group-hover:rotate-12 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
                             </svg>
-                            FRINGILLA LACUS NEC METUS
+                            <span class="text-lg">DAHA FAZLA BİLGİ AL</span>
                         </button>
-                        <a class="bg-gradient-to-r from-pink-500 to-blue-800 hover:from-purple-600 hover:to-blue-800 text-white font-semibold py-3 px-6 rounded-lg transition-all transform hover:scale-105 shadow-lg hover:shadow-xl flex items-center gap-2" href="/secim">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <a class="w-full bg-gradient-to-r from-pink-500 to-red-600 hover:from-pink-600 hover:to-red-700 text-white font-bold py-3 px-6 rounded-xl transition-all duration-300 transform hover:scale-105 shadow-lg flex items-center justify-center gap-2 group" href="/secim">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 transform group-hover:-rotate-12 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
                             </svg>
-                            SATIN AL ANINDA İZLE
+                            <span class="text-lg">HEMEN SATIN AL</span>
                         </a>
-                        <a class="text-center text-white py-2 px-4 rounded-lg transition-colors inline-flex items-center justify-center" href="@package.DetailLink">
-                            Detayları incele test
-                            <i class="fas fa-arrow-right ml-2"></i>
+                        <a class="text-center text-blue-300 hover:text-blue-100 py-2 px-4 rounded-lg transition-colors inline-flex items-center justify-center text-sm font-medium" href="@package.DetailLink">
+                            Paket Detaylarını İncele
+                            <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform duration-300"></i>
                         </a>
                     </div>
                 </div>
             </div>
         }
     </section>
+
+    <div id="myModal" class="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 hidden">
+        <div class="bg-gray-800 p-8 rounded-lg shadow-xl text-white max-w-md w-full relative">
+            <button onclick="closeModal()" class="absolute top-3 right-3 text-gray-400 hover:text-gray-200 text-2xl">&times;</button>
+            <h3 class="text-2xl font-bold mb-4">Daha Fazla Bilgi</h3>
+            <p>Bu paket hakkında daha fazla bilgi edinmek için lütfen bizimle iletişime geçin veya aşağıdaki formu doldurun.</p>
+            <button onclick="closeModal()" class="mt-6 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg">Kapat</button>
+        </div>
+    </div>
+
+    <script>
+        function openModal() {
+            document.getElementById('myModal').classList.remove('hidden');
+        }
+
+        function closeModal() {
+            document.getElementById('myModal').classList.add('hidden');
+        }
+    </script>
 </body>
 </html>
