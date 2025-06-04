@@ -20,34 +20,42 @@
 <section class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 justify-center mt-5 items-center mx-auto max-w-[1400px] mb-24">
     @foreach (var package in Model)
     {
+        @* Her paketin varsayılan hız seçeneğini belirliyoruz. Genellikle ilk seçenek varsayılan olarak gelir. *@
         var defaultSpeedOption = package.SpeedOptions.FirstOrDefault();
         <div class="bg-white/20 p-4 border border-white/30 rounded-lg shadow-md hover:shadow-lg transition-shadow package-card">
             <div class="relative">
                 @if (!string.IsNullOrEmpty(package.BadgeLeft))
                 {
+                    @* Sol üst köşede yer alan kampanya veya bilgilendirme rozetini (badge) gösteriyoruz. *@
                     <div class="absolute top-0 left-0 bg-purple-600 text-white py-1 px-3 text-xs rounded-r-lg">
                         @package.BadgeLeft
                     </div>
                 }
                 @if (!string.IsNullOrEmpty(package.BadgeRight))
                 {
+                    @* Sağ üst köşede yer alan başka bir kampanya veya bilgilendirme rozetini gösteriyoruz. *@
                     <div class="absolute top-0 right-0 bg-red-600 text-white py-1 px-3 text-xs rounded-l-lg">
                         @package.BadgeRight
                     </div>
                 }
 
+                @* Paketin görselini yüklüyoruz. *@
                 <img src="@package.ImageSrc" alt="@package.ImageAlt" loading="lazy" class="w-full h-48 object-cover rounded-lg">
 
                 <div class="p-2 text-white text-center">
+                    @* Paketin başlığını ve seçili hız seçeneğini dinamik olarak görüntülüyoruz. *@
                     <h3 class="text-center text-lg font-semibold package-title">@package.BaseTitle @(defaultSpeedOption?.DisplayText)</h3>
+                    @* Paketin altındaki yasal uyarı veya ek bilgileri görüntülüyoruz. *@
                     <div class="text-sm text-white">@package.Disclaimer</div>
 
                     <div class="mt-3 bg-white/20 p-2 border border-white/30 rounded-lg">
+                        @* Hız seçeneklerini içeren bir seçim kutusu (dropdown) oluşturuyoruz. *@
                         <select class="package-selector w-full bg-white rounded-lg p-2 text-gray-800 border border-purple-300" aria-label="İnternet Paket Hızınızı Seçin">
                             @foreach (var option in package.SpeedOptions.OrderBy(o => int.Parse(o.Value)))
                             {
-                                var isSelected = option == defaultSpeedOption;
-                                var selectedAttr = isSelected ? "selected" : "";
+                                @* Her bir hız seçeneğini liste olarak ekliyoruz. *@
+                                var isSelected = option == defaultSpeedOption; @* Varsayılan seçeneği belirliyoruz. *@
+                                var selectedAttr = isSelected ? "selected" : ""; @* Seçili ise 'selected' özelliğini ekliyoruz. *@
                                 <option value="@option.Value"
                                         data-firstprice="@option.FirstPrice"
                                         data-url="@option.Url"
@@ -57,19 +65,20 @@
                                 </option>
                             }
 
-}
-
+                            @* Bu kısım, Razor döngüsü içinde hatalı bir şekilde kapatılmıştı, düzeltildi. *@
                         </select>
                     </div>
 
                     <div style="text-shadow:-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;">
                         <div class="mt-3 text-center">
+                            @* Paketin 12 aylık sabit fiyatını gösteriyoruz. Bu değer, seçilen hıza göre güncellenecektir. *@
                             <div class="text-xl font-bold text-white">
                                 12 Ay Sabit <span class="first-price">@(defaultSpeedOption?.FirstPrice)</span>₺
                             </div>
                         </div>
 
                         @{
+                            @* Paketin özelliklerini JSON'dan deserialize edip listeliyoruz. *@
                             var features = !string.IsNullOrEmpty(package.FeaturesJson) ? JsonSerializer.Deserialize<List<string>>(package.FeaturesJson) : new List<string>();
                             foreach (var feature in features)
                             {
@@ -81,12 +90,14 @@
 
                 <div class="mt-4 space-y-3">
                     <div class="flex flex-col gap-2">
+                        @* "Hemen Başvur" butonu, bir modal penceresi açar. *@
                         <button onclick="openModal()" class="bg-gradient-to-r from-purple-400 to-blue-800 hover:from-purple-600 hover:to-blue-800 text-white font-semibold py-3 px-6 rounded-lg transition-all transform hover:scale-105 shadow-lg hover:shadow-xl flex items-center gap-2">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
                             </svg>
                             HEMEN BAŞVUR
                         </button>
+                        @* "Detaylı İncele" bağlantısı, seçilen hız seçeneğinin URL'sine yönlendirir. *@
                         <a class="detail-link text-center text-white py-2 px-4 rounded-lg transition-colors inline-flex items-center justify-center" href="/@(defaultSpeedOption?.Url)">
                             Detaylı İncele
                             <i class="fas fa-arrow-right ml-2"></i>
@@ -97,45 +108,3 @@
         </div>
     }
 </section>
-
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        document.querySelectorAll('.package-selector').forEach(select => {
-            updateCard(select); // Sayfa yüklendiğinde
-
-            select.addEventListener('change', function () {
-                updateCard(this);
-            });
-        });
-
-        function updateCard(selectElement) {
-            const card = selectElement.closest('.package-card');
-            const selectedOption = selectElement.options[selectElement.selectedIndex];
-
-            card.querySelector('.first-price').textContent = selectedOption.dataset.firstprice;
-
-            const titleElement = card.querySelector('.package-title');
-            if (titleElement) {
-                titleElement.textContent = selectedOption.dataset.title;
-            }
-
-            const detailLink = card.querySelector('.detail-link');
-            if (detailLink) {
-                const newUrl = "/" + selectedOption.dataset.url;
-                detailLink.setAttribute('href', newUrl);
-            }
-        }
-    });
-</script>
-
-<style>
-    .package-selector {
-        -webkit-appearance: none;
-        -moz-appearance: none;
-        appearance: none;
-        background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
-        background-repeat: no-repeat;
-        background-position: right 0.75rem center;
-        background-size: 1.2em;
-    }
-</style>

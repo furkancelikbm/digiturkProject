@@ -8,40 +8,52 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
         body {
-            /* IMPORTANT: For this to work in a real web environment,
-                                'file:///C:/Users/furka/source/repos/digiturkProject/digiturkProject/wwwroot/images/purple-night-ride-4k-qz-min.webp'
-                                needs to be replaced with a web-accessible URL.
-                                E.g., if hosted on your server, it might be '/images/purple-night-ride-4k-qz-min.webp'.
-                               */
-            background-image: url('/images/purple-night-ride-4k-qz-min.webp'); /* Placeholder: Update this path */
+            @* Sayfanın arka planına özel stil tanımları yapılır. *@
+            background-image: url('/images/purple-night-ride-4k-qz-min.webp');
+            @* Arka plan resmi olarak bu görsel belirlenir. Yolun sunucuya göre ayarlanması gerekir. *@
             background-size: cover;
+            @* Arka plan resminin tüm alanı kaplaması sağlanır. *@
             background-repeat: no-repeat;
+            @* Arka plan resminin tekrarlanmaması sağlanır. *@
             background-attachment: fixed;
+            @* Arka plan resminin kaydırma ile sabit kalması sağlanır. *@
             background-position: center center;
+            @* Arka plan resminin ortalanması sağlanır. *@
         }
 
-        /* Custom glow effect for the cards on hover */
+        @* Kartların üzerine gelindiğinde (hover) aktif olacak özel parlama efekti için CSS tanımları yapılır. *@
         .card-glow:hover {
-            box-shadow: 0 0 30px rgba(168, 85, 247, 0.6), 0 0 60px rgba(236, 72, 153, 0.4); /* Purple and Pink glow */
+            box-shadow: 0 0 30px rgba(168, 85, 247, 0.6), 0 0 60px rgba(236, 72, 153, 0.4);
+            @* Mor ve pembe tonlarında bir kutu gölgesi (parlama) eklenir. *@
         }
 
-        /* Custom animation for badges */
+        @* Rozetler (badge) için özel bir animasyon tanımlanır. *@
         @@keyframes pulse-once {
-            0% {
-                transform: scale(1);
-            }
+            @* Animasyonun başlangıç durumu. *@
+            0%
 
-            50% {
-                transform: scale(1.05);
-            }
+        {
+            transform: scale(1);
+            @* Normal boyut. *@
+        }
 
-            100% {
-                transform: scale(1);
-            }
+        @* Animasyonun orta durumu. *@
+        50% {
+            transform: scale(1.05);
+            @* Biraz büyütme. *@
+        }
+
+        @* Animasyonun bitiş durumu. *@
+        100% {
+            transform: scale(1);
+            @* Tekrar normal boyuta dönme. *@
+        }
+
         }
 
         .animate-pulse-once {
             animation: pulse-once 0.8s ease-in-out forwards;
+            @* 'pulse-once' animasyonu 0.8 saniyede bir kez çalışacak şekilde ayarlanır. *@
         }
     </style>
 </head>
@@ -49,7 +61,6 @@
     @model List<digiturkProject.Models.TvPackage>
     @using System.Text.Json
     @using System.Collections.Generic
-
     <section class="mx-auto max-w-[1200px] mb-16 mt-20">
         <div class="text-center mb-10 px-4">
             <h2 class="text-3xl md:text-4xl font-bold text-white mb-4 relative pb-4" style="text-shadow:-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;">
@@ -63,7 +74,6 @@
     </section>
 
     <section class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 justify-center items-stretch mt-5 mx-auto max-w-[1200px] pb-24">
-
         @foreach (var package in Model)
         {
             <div class="bg-white/10 p-6 border border-white/20 rounded-xl shadow-lg backdrop-blur-sm hover:shadow-2xl transition-all duration-300 ease-in-out flex flex-col h-full card-glow">
@@ -89,6 +99,7 @@
 
                 <div class="flex-grow">
                     @{
+                        @* package.FeaturesJson alanından özellikler alınır ve JSON olarak deserialize edilir. Eğer boşsa boş bir liste oluşturulur. *@
                         var features = !string.IsNullOrEmpty(package.FeaturesJson) ? JsonSerializer.Deserialize<List<string>>(package.FeaturesJson) : new List<string>();
                         <ul class="text-white text-sm space-y-2 mb-4">
                             @foreach (var feature in features)
@@ -139,11 +150,15 @@
     </div>
 
     <script>
+        // Modalın görünürlüğünü ayarlayan JavaScript fonksiyonu.
         function openModal() {
+            // 'myModal' ID'sine sahip elementten 'hidden' sınıfı kaldırılır, böylece modal görünür hale gelir.
             document.getElementById('myModal').classList.remove('hidden');
         }
 
+        // Modalın gizlenmesini sağlayan JavaScript fonksiyonu.
         function closeModal() {
+            // 'myModal' ID'sine sahip elemente 'hidden' sınıfı eklenir, böylece modal gizlenir.
             document.getElementById('myModal').classList.add('hidden');
         }
     </script>

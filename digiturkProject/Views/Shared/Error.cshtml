@@ -1,25 +1,25 @@
-﻿@model ErrorViewModel
+﻿@model ErrorViewModel // Bu sayfanın ErrorViewModel adında bir model beklediğini belirtiyorum.
 @{
-    ViewData["Title"] = "Error";
+    ViewData["Title"] = "Hata"; // Sayfanın başlığını "Hata" olarak belirliyorum.
 }
 
-<h1 class="text-danger">Error.</h1>
-<h2 class="text-danger">An error occurred while processing your request.</h2>
+<h1 class="text-danger">Hata.</h1> // Kırmızı renkte büyük bir "Hata." başlığı gösteriyorum.
+<h2 class="text-danger">İsteğiniz işlenirken bir hata oluştu.</h2> // Kırmızı renkte "İsteğiniz işlenirken bir hata oluştu." mesajını gösteriyorum.
 
-@if (Model.ShowRequestId)
+@if (Model.ShowRequestId) // Eğer modelde isteğin kimliğini göstermem gerekiyorsa (ShowRequestId true ise)
 {
     <p>
-        <strong>Request ID:</strong> <code>@Model.RequestId</code>
+        <strong>İstek Kimliği:</strong> <code>@Model.RequestId</code> // İsteğin benzersiz kimliğini gösteriyorum.
     </p>
 }
 
-<h3>Development Mode</h3>
+<h3>Geliştirme Modu</h3> // "Geliştirme Modu" başlığını gösteriyorum.
 <p>
-    Swapping to <strong>Development</strong> environment will display more detailed information about the error that occurred.
+    <strong>Geliştirme</strong> ortamına geçmek, oluşan hata hakkında daha detaylı bilgi gösterecektir. // Geliştirme ortamında daha fazla hata detayı alacağımı belirtiyorum.
 </p>
 <p>
-    <strong>The Development environment shouldn't be enabled for deployed applications.</strong>
-    It can result in displaying sensitive information from exceptions to end users.
-    For local debugging, enable the <strong>Development</strong> environment by setting the <strong>ASPNETCORE_ENVIRONMENT</strong> environment variable to <strong>Development</strong>
-    and restarting the app.
+    <strong>Geliştirme ortamı, canlıya alınmış uygulamalar için etkinleştirilmemelidir.</strong> // Canlı uygulamalarda geliştirme modunun açılmaması gerektiği konusunda uyarıyorum.
+    Bu durum, istisnalardaki hassas bilgilerin son kullanıcılara gösterilmesine neden olabilir. // Çünkü bu, hassas bilgilerin son kullanıcılara sızmasına yol açabilir.
+    Yerel hata ayıklama için, <strong>ASPNETCORE_ENVIRONMENT</strong> ortam değişkenini <strong>Development</strong> olarak ayarlayarak // Yerel hata ayıklama yaparken ne yapmam gerektiğini anlatıyorum: Ortam değişkenini "Development" yap.
+    ve uygulamayı yeniden başlatarak <strong>Geliştirme</strong> ortamını etkinleştirin. // Ve uygulamayı yeniden başlatarak geliştirme modunu etkinleştir.
 </p>

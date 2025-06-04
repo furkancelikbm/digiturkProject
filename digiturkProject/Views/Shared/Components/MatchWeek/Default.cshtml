@@ -1,7 +1,7 @@
-﻿@model List<digiturkProject.Models.Match> // Proje adınıza göre değiştirin
+﻿@model List<digiturkProject.Models.Match>
 
 <div class="px-4 mt-4">
-    <section class="mx-auto max-w-[1200px] mb-1 mt-16">
+    <section class="mx-auto max_w-[1200px] mb-1 mt-16">
         <div class="text-center mb-10 px-4">
             <h2 class="text-3xl md:text-4xl font-bold text-white mb-4 relative pb-4" style="text-shadow:-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;">
                 Haftanın Maçları
@@ -62,55 +62,67 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
+      @* Slider mekanizması için gerekli DOM elemanlarını seçiyoruz. *@
       const slider = document.getElementById('matchWeekSlider_MatchWeekViewComponentPartial');
       const leftBtn = document.getElementById('sliderLeftBtn_MatchWeekViewComponentPartial');
       const rightBtn = document.getElementById('sliderRightBtn_MatchWeekViewComponentPartial');
       const cards = slider.querySelectorAll('.card_MatchWeekViewComponentPartial');
-      let currentIndex = 0;
+      let currentIndex = 0; @* Aktif olarak gösterilen kartın indeksini tutarız. *@
 
+      @* Belirli bir karta kaydırma işlevini tanımlıyoruz. *@
       function scrollToCard(index) {
+        @* Geçersiz indeks kontrolü yapılır. *@
         if (index < 0 || index >= cards.length) return;
         const card = cards[index];
+        @* Kartın ortalanmış bir şekilde görünmesi için kaydırma hedefi hesaplanır. *@
         const targetScrollLeft = card.offsetLeft - ((slider.offsetWidth - card.offsetWidth) / 2);
+        @* Yumuşak bir geçişle kaydırma işlemi gerçekleştirilir. *@
         slider.scrollTo({ left: targetScrollLeft, behavior: 'smooth' });
       }
 
+      @* Sol oka tıklanıldığında bir önceki karta kaydırılır. *@
       leftBtn.addEventListener('click', () => {
         if (currentIndex > 0) {
-          currentIndex--;
-          scrollToCard(currentIndex);
+          currentIndex--; @* İndeksi bir azaltırız. *@
+          scrollToCard(currentIndex); @* Yeni indekse kaydırırız. *@
         }
       });
 
+      @* Sağ oka tıklanıldığında bir sonraki karta kaydırılır. *@
       rightBtn.addEventListener('click', () => {
         if (currentIndex < cards.length - 1) {
-          currentIndex++;
-          scrollToCard(currentIndex);
+          currentIndex++; @* İndeksi bir artırırız. *@
+          scrollToCard(currentIndex); @* Yeni indekse kaydırırız. *@
         }
       });
 
+      @* Ardışık olayları geciktirmek için bir debounce fonksiyonu tanımlanır. *@
+      @* Bu, scroll gibi sık tetiklenen olaylarda performansı artırır. *@
       function debounce(func, wait) {
         let timeout;
         return function(...args) {
-          clearTimeout(timeout);
-          timeout = setTimeout(() => func.apply(this, args), wait);
+          clearTimeout(timeout); @* Önceki zamanlayıcıyı temizleriz. *@
+          timeout = setTimeout(() => func.apply(this, args), wait); @* Belirtilen süre sonunda fonksiyonu çalıştırırız. *@
         };
       }
 
+      @* Slider kaydırıldığında, en yakın kartı ortaya getirmek için kullanılır. *@
       slider.addEventListener('scroll', debounce(() => {
-        const sliderCenter = slider.scrollLeft + slider.offsetWidth / 2;
+        const sliderCenter = slider.scrollLeft + slider.offsetWidth / 2; @* Slider'ın orta noktasını hesaplarız. *@
         let closestIndex = 0;
-        let closestDistance = Infinity;
+        let closestDistance = Infinity; @* En yakın kartı bulmak için başlangıç değeri. *@
+
+        @* Her bir kart için döngü yaparak, slider'ın orta noktasına en yakın kartı buluruz. *@
         cards.forEach((card, index) => {
-          const cardCenter = card.offsetLeft + card.offsetWidth / 2;
-          const distance = Math.abs(cardCenter - sliderCenter);
+          const cardCenter = card.offsetLeft + card.offsetWidth / 2; @* Kartın orta noktasını hesaplarız. *@
+          const distance = Math.abs(cardCenter - sliderCenter); @* Kartın ortası ile slider'ın ortası arasındaki mesafeyi buluruz. *@
           if (distance < closestDistance) {
             closestDistance = distance;
-            closestIndex = index;
+            closestIndex = index; @* En yakın kartın indeksini güncelleriz. *@
           }
         });
-        currentIndex = closestIndex;
-        scrollToCard(currentIndex);
-      }, 150));
+        currentIndex = closestIndex; @* Aktif indeksi en yakın karta ayarlarız. *@
+        scrollToCard(currentIndex); @* Slider'ı bu karta kaydırırız. *@
+      }, 150)); @* 150 milisaniye gecikmeli çalışır. *@
     });
 </script>

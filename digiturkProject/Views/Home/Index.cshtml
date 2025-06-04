@@ -1,18 +1,15 @@
-﻿@model digiturkProject.Models.ContactFormModel // Eğer form gönderimi yapılıyorsa modelinizi buraya ekleyin
+﻿@model digiturkProject.Models.ContactFormModel
 @{
-    ViewData["Title"] = "Ana Sayfa";
+    ViewData["Title"] = "Ana Sayfa"; @* Sayfanın başlığını belirleriz. *@
 }
 
 <div class="w-full">
     <img src="images/home-bambaska-bir-sezon-banner.webp" alt="Digiturk Bambaska Bir Sezon Banner" class="w-full hidden md:block" fetchpriority="high">
-
     <img src="images/home-bambaska-bir-sezon-banner-mobile.webp" alt="Digiturk Bambaska Bir Sezon Banner Mobile" class="w-full block md:hidden" fetchpriority="high">
 </div>
 
 @await Component.InvokeAsync("MatchWeek")
-
 @await Component.InvokeAsync("TvPackage")
-
 @await Component.InvokeAsync("InternetPackage")
 
 <section class="py-16">
@@ -68,7 +65,13 @@
     </div>
 </section>
 
+---
 
+### Güvenli ve Hızlı Bağlantı Bölümü
+
+Bu kısım, Digiturk'ün internet hizmetlerinin genel avantajlarını ve sayısal başarılarını vurgular.
+
+```html
 <section class="py-16 flex justify-center">
     <div class="max-w-7xl w-full px-4">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
@@ -131,6 +134,14 @@
         </div>
     </div>
 </section>
+
+---
+
+### Bilgi ve Başvuru Çağrısı
+
+Bu kısım, kullanıcıları Digiturk internet fiyatları ve kampanyaları hakkında bilgi almak için iletişime geçmeye teşvik eder.
+
+```html
 <section class="py-12">
     <div class="max-w-7xl mx-auto rounded-lg overflow-hidden bg-white/10 p-4 border border-white/30">
         <div class="px-4 py-12">
@@ -148,6 +159,13 @@
     </div>
 </section>
 
+---
+
+### "Sizi Arayalım" İletişim Formu Modalı
+
+Bu bölüm, kullanıcıların iletişim bilgilerini bırakabileceği bir pop-up formu (`modal`) tanımlar. Form, ASP.NET Core MVC'nin model bağlama ve doğrulama özelliklerini kullanır.
+
+```html
 <div id="form-container" class="fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center z-50 hidden" onclick="closeModal(event)">
     <div class="bg-white w-full max-w-lg rounded-lg shadow-lg p-6 relative" onclick="event.stopPropagation()">
         <div class="text-center">
@@ -185,18 +203,28 @@
 
 @section Scripts {
     @{
+        @* İstemci tarafı doğrulama scriptlerini (örneğin jQuery Validation) render ederiz. *@
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
 }
 
+---
+
+### Modal Açma/Kapatma JavaScript Fonksiyonları
+
+Bu JavaScript kodu, iletişim formunu içeren modal penceresinin açılıp kapanmasını yönetir.
+
+```javascript
 <script>
-    // Form açma/kapatma fonksiyonları
+    @* Formu açma fonksiyonu: 'form-container' elementinin 'hidden' sınıfını kaldırırız. *@
     function openModal() {
         document.getElementById("form-container").classList.remove("hidden");
     }
 
+    @* Formu kapatma fonksiyonu: Tıklamanın modalın kendisine veya dışına yapılıp yapılmadığını kontrol ederiz. *@
     function closeModal(event) {
         const modal = document.getElementById("form-container");
+        @* Eğer tıklama, modalın kendisi veya tıklama olayı ise modalı gizleriz. *@
         if (event.target === modal || event.type === "click") {
             modal.classList.add("hidden");
         }
